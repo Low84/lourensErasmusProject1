@@ -1,20 +1,20 @@
-// Country list from countryBorders.geo.json
+// // Country list from countryBorders.geo.json
 
-let dropdown = $('#countrySelect');
+// let dropdown = $('#locality-dropdown');
 
-dropdown.empty();
+// dropdown.empty();
 
-dropdown.append('<option selected="true" disabled>Choose Country</option>');
-dropdown.prop('selectedIndex', 0);
+// dropdown.append('<option selected="true" disabled>Choose Country</option>');
+// dropdown.prop('selectedIndex', 0);
 
-const url = './data/countryBorders.geo.json';
+// const url = './data/countryBorders.geo.json';
 
-// Populate dropdown with list of provinces
-$.getJSON(url, function (data) {
-  $.each(data, function (key, entry) {
-    dropdown.append($('<option></option>').attr('value', entry.name));
-  })
-});
+// // Populate dropdown with list of provinces
+// $.getJSON(url, function (data) {
+//   $.each(data, function (key, entry) {
+//     dropdown.append($('<option></option>').attr('value', entry.name));
+//   })
+// });
   
   // Country Info API
   $('#countrySelect').click(function() {
