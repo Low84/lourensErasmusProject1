@@ -1,5 +1,5 @@
   // Country Info API
-  $('#btnRun').click(function() {
+  $('#select').click(function() {
 
     $.ajax({
       url: "./php/countryInfoAPI.php",
@@ -33,7 +33,7 @@
   });
   
   // Wikipedia api script
-  $('#wikipediaBtn').click(function() {
+  $('#select').click(function() {
 
 		$.ajax({
 			url: "./php/wikipediaAPI.php",
@@ -63,7 +63,7 @@
 	});
 
   // Current Weather API
-  $('#btnRun').click(function() {
+  $('#select').click(function() {
 
     $.ajax({
       url: "./php/weatherAPI.php",
