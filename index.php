@@ -30,7 +30,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav" id="countrySelect">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Country List
@@ -66,7 +66,7 @@
             $.ajax({
                 type: "GET",
                 dataType: "json",
-                url: "./php/api.php",
+                url: "./php/countryBorders.php",
                 success: function (data) {
                     console.log('Great Success');
                     $.each(data, function(index,value) {

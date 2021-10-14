@@ -1,5 +1,23 @@
+// Country list from countryBorders.geo.json
+
+let dropdown = $('#countrySelect');
+
+dropdown.empty();
+
+dropdown.append('<option selected="true" disabled>Choose Country</option>');
+dropdown.prop('selectedIndex', 0);
+
+const url = './data/countryBorders.geo.json';
+
+// Populate dropdown with list of provinces
+$.getJSON(url, function (data) {
+  $.each(data, function (key, entry) {
+    dropdown.append($('<option></option>').attr('value', entry.name));
+  })
+});
+  
   // Country Info API
-  $('#select').click(function() {
+  $('#countrySelect').click(function() {
 
     $.ajax({
       url: "./php/countryInfoAPI.php",
@@ -33,7 +51,7 @@
   });
   
   // Wikipedia api script
-  $('#select').click(function() {
+  $('#countrySelect').click(function() {
 
 		$.ajax({
 			url: "./php/wikipediaAPI.php",
@@ -63,7 +81,7 @@
 	});
 
   // Current Weather API
-  $('#select').click(function() {
+  $('#countrySelect').click(function() {
 
     $.ajax({
       url: "./php/weatherAPI.php",
@@ -95,7 +113,7 @@
   });
 
   // Current exchange rate API
-  $('#btnRun').click(function() {
+  $('#countrySelect').click(function() {
 
     $.ajax({
       url: "./php/exchangeAPI.php",
