@@ -77,7 +77,7 @@ $.getJSON("./data/countryBorders.geo.json", function(json) {
    }
   });
  });
- </script>
+
   
   // Country Info API
   $('#countrySelect').click(function() {
