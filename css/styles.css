@@ -1,12 +1,22 @@
 html, body {
   height: 100%;
   margin: 0px;
+  overflow: hidden;
 }
 
 #mapid { 
-  height: 100%; 
+  height: 100%;
+  margin: 0px;
+  overflow: hidden; 
 }
 
 .container {
   height: 100vh;
 }
+
+
+/* navbar scrollable styling !NOT WORKING! */
+/* #sel_country {
+  max-height: 200px !important;
+  overflow-y: auto !important;
+} */
