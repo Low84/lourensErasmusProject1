@@ -1,6 +1,3 @@
-// Line 3 - 15 Gets users location after browser requests permission
- // L.marker([lat, long]).addTo(mymap)
-  //   .bindPopup("<b>Hello!</b><br />This is your current location.").openPopup();
 let lat;
 let long;
 const successfulLookup = position => {
@@ -25,8 +22,8 @@ const successfulLookup = position => {
     zoomOffset: -1
   }).addTo(mymap);
 
-  // L.marker([lat, long]).addTo(mymap)
-  //   .bindPopup("<b>Hello!</b><br />This is your current location.").openPopup();
+  L.marker([lat, long]).addTo(mymap)
+    .bindPopup("<b>Hello!</b><br />This is your current location.").openPopup();
 
   L.circle([lat, long], 500, {
     color: 'red',
