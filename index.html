@@ -23,7 +23,7 @@
     <link href="./images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 </head>
 
-<body scroll="no">
+<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Gazetteer</a>
@@ -39,11 +39,11 @@
                             data-bs-toggle="dropdown" aria-expanded="false">
                             Country List
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink"
-                            id="sel_country">
+                        <select class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink"
+                            id="sel_country" size="6">
                             <!-- <div class="list_of_countries"></div> -->
 
-                        </ul>
+                        </select>
                     </li>
                 </ul>
             </div>
@@ -70,8 +70,11 @@
                 url: "./php/getCountries.php",
                 success: function (data) {
                     console.log('Great Success');
+                     // console.log(data[0]);
                     $.each(data, function (key, value) {
-                        $("#sel_country").append("<li><a class='dropdown-item active country_code' onclick='return CountryCheck()' id=" + value[1] + ">" + value[0] + "</a></li>");
+                      // console.log(value[1]);
+                      // console.log(value[0]);
+                        $("#sel_country").append("<option><a class='dropdown-item active country_code' onclick='return CountryCheck()' id=" + value[1] + ">" + value[0] + "</a></option>");
                     });
                 }
             });
@@ -83,7 +86,7 @@
                 type: "GET",
                 url: "./php/countryBorders.php?country_code=" + country_code,
                 success: function (data) {
-                    console.log("Suceess")
+                    console.log("Success")
                     console.log(data)
                     // Call function to update to recenter map with updated coordinates
                 }

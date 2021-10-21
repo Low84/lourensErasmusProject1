@@ -6,8 +6,8 @@ const successfulLookup = position => {
     .then(response => response.json())
     .then(console.log);
 
-    // console.log(latitude);
-    // console.log(longitude);
+    console.log(latitude);
+    console.log(longitude);
   lat = latitude;
   long = longitude;
   

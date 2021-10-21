@@ -14,6 +14,3 @@ for($i=0;$i<sizeof($features);$i++){
     }
 }
 print_r(json_encode($output_geom));
-© 2021 GitHub, Inc.
-Terms
-Privacy

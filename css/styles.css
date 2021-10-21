@@ -14,9 +14,10 @@ html, body {
   height: 100vh;
 }
 
+option:hover { 
+  background-color: rgb(226, 39, 39) !important;
+  font-weight: bold;
+  font-style: italic;
+}
 
-/* navbar scrollable styling !NOT WORKING! */
-/* #sel_country {
-  max-height: 200px !important;
-  overflow-y: auto !important;
-} */
+
