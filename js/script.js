@@ -1,17 +1,17 @@
-// let lat;
-// let long;
-// const successfulLookup = position => {
-//   const { latitude, longitude } = position.coords;
-//   fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=e629dbaaefe94793afde8b17b2947ad8`)
-//     .then(response => response.json())
-//     .then(console.log);
+let lat;
+let long;
+const successfulLookup = position => {
+  const { latitude, longitude } = position.coords;
+  fetch(`https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=e629dbaaefe94793afde8b17b2947ad8`)
+    .then(response => response.json())
+    .then(console.log);
 
-//     // console.log(latitude);
-//     // console.log(longitude);
-//   lat = latitude;
-//   long = longitude;
+    // console.log(latitude);
+    // console.log(longitude);
+  lat = latitude;
+  long = longitude;
   
-  var mymap = L.map('mapid').setView([#latitude, #longitude], 14);
+  var mymap = L.map('mapid').setView([lat, long], 14);
 
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
     maxZoom: 18,
@@ -22,10 +22,10 @@
     zoomOffset: -1
   }).addTo(mymap);
 
-  L.marker([#latitude, #longitude]).addTo(mymap)
+  L.marker([lat, long]).addTo(mymap)
     .bindPopup("<b>Hello!</b><br />This is your current location.").openPopup();
 
-  L.circle([#latitude, #longitude], 500, {
+  L.circle([lat, long], 500, {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.5
@@ -48,7 +48,7 @@
   }
 
   mymap.on('click', onMapClick);
-  // } 
+  } 
 
   window.navigator.geolocation
   .getCurrentPosition(successfulLookup, console.log);
