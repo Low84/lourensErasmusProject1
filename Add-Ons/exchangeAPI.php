@@ -1,4 +1,4 @@
-<!-- App ID 834dd82e246e4c0ca57eed9b68a0001b -->
+<!-- App ID 93790965e545e00b206ee6e8 -->
 
 <?php
 
@@ -7,7 +7,7 @@
 
 	$executionStartTime = microtime(true);
 
-	$url='https://openexchangerates.org/api/latest.json?app_id=834dd82e246e4c0ca57eed9b68a0001b' . '&base=' . $_REQUEST['countryCode'];
+	$url='https://v6.exchangerate-api.com/v6/93790965e545e00b206ee6e8/latest/' . $_REQUEST['countryCode'];
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -24,7 +24,7 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-	$output['data'] = $decode['rates'];
+	$output['data'] = $decode['conversion_rates'];
 	
 	header('Content-Type: application/json; charset=UTF-8');
 

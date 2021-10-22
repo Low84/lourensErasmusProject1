@@ -117,7 +117,7 @@
                 success: function (data) {
                     console.log(data);
                     lat = data['data']['lat'];
-                    lng = data['data']['lng']
+                    lng = data['data']['lng'];
 
                     var container = L.DomUtil.get('mapid'); if (container != null) { container._leaflet_id = null; }
                     var mymap = null
@@ -174,7 +174,7 @@
                 }
 
             })
-
+            
         });
 
 
