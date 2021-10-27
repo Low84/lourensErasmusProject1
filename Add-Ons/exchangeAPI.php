@@ -4,10 +4,11 @@
 
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
+  $country = $_GET['country'];
 
 	$executionStartTime = microtime(true);
 
-	$url='https://v6.exchangerate-api.com/v6/93790965e545e00b206ee6e8/latest/' . $_REQUEST['countryCode'];
+	$url='https://openexchangerates.org/api/latest.json?app_id=834dd82e246e4c0ca57eed9b68a0001b&prettyprint=0';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -23,10 +24,8 @@
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
-	$output['status']['returnedIn'] = intval((microtime(true) - $executionStartTime) * 1000) . " ms";
-	$output['data'] = $decode['conversion_rates'];
+	$output['data']['exchange'] = $decode['rates'];
 	
-	header('Content-Type: application/json; charset=UTF-8');
 
 	echo json_encode($output); 
 
