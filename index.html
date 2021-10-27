@@ -74,26 +74,38 @@
                 <div class="modal-body">
                     <table class="table">
                         <tbody>
-                            <tr>
-                                <th>Currency:</th>
-                                <td id="currency"></td>
-                            </tr>
-                            <tr>
-                                <th>Calling Code:</th>
-                                <td id="calling_code"></td>
-                            </tr>
-                            <tr>
-                                <th>Coordinates:</th>
-                                <td id="coord"></td>
-                            </tr>
-                            <tr>
-                                <th>Continent:</th>
-                                <td id="continent"></td>
-                            </tr>
-                            <tr>
-                                <th>Flag:</th>
-                                <td id="flag"></td>
-                            </tr>
+                          <tr>
+                              <th>Currency:</th>
+                              <td id="currency"></td>
+                          </tr>
+                          <tr>
+                              <th>Calling Code:</th>
+                              <td id="calling_code"></td>
+                          </tr>
+                          <tr>
+                              <th>Coordinates:</th>
+                              <td id="coord"></td>
+                          </tr>
+                          <tr>
+                              <th>Continent:</th>
+                              <td id="continent"></td>
+                          </tr>
+                          <tr>
+                              <th>Flag:</th>
+                              <td id="flag"></td>
+                          </tr>
+                          <tr>
+                              <th>Capital:</th>
+                              <td id="capital"></td>
+                          </tr>
+                          <tr>
+                            <th>Wikipedia Summary:</th>
+                            <td id="wikipedia"></td>
+                        </tr>
+                        <tr>
+                          <th>Current Weather:</th>
+                          <td id="weather"></td>
+                      </tr>
                         </tbody>
                     </table>
                 </div>
@@ -164,6 +176,8 @@
             $('#continent').html(data['continent']);
             $('#country').html(data['country']);
             $('#flag').html(data['flag']);
+            // capital
+            $('#capital').html(['data']['capital']);
 
             $('.info').modal('show');
 
@@ -178,12 +192,10 @@
                 success: function (data) {
 
                     console.log(data);
-
+                    CountryInfo(data);
                     // if (result.status.name == "ok") {
 
-                        // $('#txtCapital').html(result['data'][0]['capital']);
-                    //     $('#txtLanguages').html(result['data'][0]['languages']);
-                    //     $('#txtPopulation').html(result['data'][0]['population']);
+                    //     $('#capital').html(result['data']['capital']);
 
                     // }
 
@@ -213,9 +225,7 @@
 
                     // if (result.status.name == "ok") {
 
-                        // $('#txtCapital').html(result['data'][0]['capital']);
-                    //     $('#txtLanguages').html(result['data'][0]['languages']);
-                    //     $('#txtPopulation').html(result['data'][0]['population']);
+                        // $('#wikipedia').html(result['data'][0]['capital']);
 
                     // }
 
@@ -245,9 +255,7 @@
 
                     // if (result.status.name == "ok") {
 
-                        // $('#txtCapital').html(result['data'][0]['capital']);
-                    //     $('#txtLanguages').html(result['data'][0]['languages']);
-                    //     $('#txtPopulation').html(result['data'][0]['population']);
+                        // $('#weather').html(result['data'][0]['capital']);
 
                     // }
 
