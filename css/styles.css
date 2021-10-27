@@ -20,6 +20,10 @@ option:hover {
   font-style: italic;
 }
 
-
-
-
+.info {
+  top:5%;
+  right:0%;
+  left:-30%;
+  outline: none;
+  overflow:hidden;
+  }

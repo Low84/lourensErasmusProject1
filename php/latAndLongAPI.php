@@ -22,6 +22,14 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['data'] = $decode['results'][0]['geometry'];
+	$output['coord'] = $decode['results'][0]['annotations']['DMS'];
+	$output['calling'] = $decode['results'][0]['annotations']['callingcode'];
+	$output['currency'] = $decode['results'][0]['annotations']['currency']['name'];
+	$output['flag'] = $decode['results'][0]['annotations']['flag'];
+	$output['continent'] = $decode['results'][0]['components']['continent'];
+	$output['country'] = $decode['results'][0]['components']['country'];
+
+	
 
 	echo json_encode($output); 
 
