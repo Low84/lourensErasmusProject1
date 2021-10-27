@@ -1,5 +1,3 @@
-<!-- API KEY 0fed8361e9c5489a8d3133151211310  -->
-
 <?php
 
 	ini_set('display_errors', 'On');
