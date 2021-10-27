@@ -49,8 +49,19 @@
                 Launch static backdrop modal
             </button> -->
     </nav>
-
-    <div id="mapid" style="width:100%; height:94%;"></div>
+    <div>
+        <table>
+            <tr>
+                <th>Capital City:</th>
+                <td id="txtCapital"></td>
+            </tr>
+            <tr>
+                <button id="btnRun">Test</button>
+            </tr>
+        </table>
+    </div>
+    <div id="mapid" style="width:100%; height:94%;">
+    </div>
 
 
 
@@ -139,12 +150,13 @@
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    console.log(errorThrown);
+                    // console.log(errorThrown);
                 }
 
             })
 
         });
+
 
         // Temp location for the modal trigger, ideally this should be moved to another function which will call the api's to get
         // the oountries info
@@ -156,10 +168,105 @@
             $('#country').html(data['country']);
             $('#flag').html(data['flag']);
 
-
             $('.info').modal('show');
 
         }
+
+        $('#btnRun').click(function () {
+            let countryCode = $('#sel_country').val();
+            console.log(countryCode);
+            $.ajax({
+                type: 'GET',
+                url: "./php/countryInfoAPI.php?country=" + countryCode,
+                success: function (data) {
+
+                    console.log(data);
+
+                    // if (result.status.name == "ok") {
+
+                        // $('#txtCapital').html(result['data'][0]['capital']);
+                    //     $('#txtLanguages').html(result['data'][0]['languages']);
+                    //     $('#txtPopulation').html(result['data'][0]['population']);
+
+                    // }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // your error code
+                    console.log('in error')
+                    console.log(errorThrown);
+                    console.log(textStatus)
+                    console.log(jqXHR)
+
+
+                }
+            });
+
+        });
+
+        $('#btnRun').click(function () {
+          let countryName = $('#sel_country option:selected').text();
+            console.log(countryName);
+            $.ajax({
+                type: 'GET',
+                url: "./php/wikipediaAPI.php?country=" + countryName,
+                success: function (data) {
+
+                    console.log(data);
+
+                    // if (result.status.name == "ok") {
+
+                        // $('#txtCapital').html(result['data'][0]['capital']);
+                    //     $('#txtLanguages').html(result['data'][0]['languages']);
+                    //     $('#txtPopulation').html(result['data'][0]['population']);
+
+                    // }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // your error code
+                    console.log('in error')
+                    console.log(errorThrown);
+                    console.log(textStatus)
+                    console.log(jqXHR)
+
+
+                }
+            });
+
+        });
+
+        $('#btnRun').click(function () {
+          let countryName = $('#sel_country option:selected').text();
+            console.log(countryName);
+            $.ajax({
+                type: 'GET',
+                url: "./php/weatherAPI.php?country=" + countryName,
+                success: function (data) {
+
+                    console.log(data);
+
+                    // if (result.status.name == "ok") {
+
+                        // $('#txtCapital').html(result['data'][0]['capital']);
+                    //     $('#txtLanguages').html(result['data'][0]['languages']);
+                    //     $('#txtPopulation').html(result['data'][0]['population']);
+
+                    // }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // your error code
+                    console.log('in error')
+                    console.log(errorThrown);
+                    console.log(textStatus)
+                    console.log(jqXHR)
+
+
+                }
+            });
+
+        });
 
         // countryName will not always have a value so assigning a default value which can be overwritten
         function getLocation(lat, lng, countryName = 'Your home') {
