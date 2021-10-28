@@ -49,14 +49,6 @@
                 Launch static backdrop modal
             </button> -->
     </nav>
-    <div>
-        <table>
-            <!-- Test button to see in console if apis get data -->
-            <tr>
-                <button id="btnRun">Test</button>
-            </tr>
-        </table>
-    </div>
     <div id="mapid" style="width:100%; height:94%;">
     </div>
 
@@ -101,15 +93,21 @@
                             <tr>
                                 <th>Population:</th>
                                 <td id="population"></td>
-                          </tr>
-                          <tr>
+                            </tr>
+                            <tr>
                                 <th>Current Temperature:</th>
                                 <td id="weather"></td>
-                          </tr>
-                          <tr>
-                              <th>Wikipedia Summary:</th>
-                              <td id="wiki"></td>
-                          </tr>
+                            </tr>
+                            <tr>
+                                <th>Wikipedia URL:</th>
+                                <td><a id="wikiUrl" target="_blank"></a></td>
+                            </tr>
+                            <tr>
+                                <th colspan="2">Wikipedia Summary:</th>
+                            </tr>
+                            <tr>
+                                <td id="wiki" colspan="2"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -234,6 +232,7 @@
             // From weatherAPI
             $('#weather').html(weather_data['data']['temperature'] + '°C');
             // From wikipediaAPI
+            $('#wikiUrl').html(wiki_data['data']['wikipediaURL']);
             $('#wiki').html(wiki_data['data']['wikipedia']);
 
 

@@ -27,3 +27,8 @@ option:hover {
   outline: none;
   overflow:hidden;
   }
+
+  .modalImages {
+    height: 20px;
+    width: 20px;
+  }

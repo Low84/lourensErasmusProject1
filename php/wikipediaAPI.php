@@ -6,7 +6,7 @@
 
 	$executionStartTime = microtime(true);
 
-	$url='http://api.geonames.org/wikipediaSearchJSON?formatted=true&q=' . $country . '&username=lo84';
+	$url='http://api.geonames.org/wikipediaSearchJSON?formatted=true&q=' . $country . '&maxRows=15&username=lo84';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -23,6 +23,7 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['data']['wikipedia'] = $decode['geonames'][0]['summary'];
+  $output['data']['wikipediaURL'] = $decode['geonames'][0]['wikipediaUrl'];
   
 	echo json_encode($output); 
 
