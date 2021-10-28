@@ -1,5 +1,3 @@
-<!-- App ID 93790965e545e00b206ee6e8 -->
-
 <?php
 
 	ini_set('display_errors', 'On');
@@ -8,7 +6,7 @@
 
 	$executionStartTime = microtime(true);
 
-	$url='https://openexchangerates.org/api/latest.json?app_id=834dd82e246e4c0ca57eed9b68a0001b&base=';
+	$url='https://v6.exchangerate-api.com/v6/93790965e545e00b206ee6e8/latest/USD';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -24,8 +22,10 @@
 	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
-	$output['data']['exchange'] = $decode['rates'];
-	
+	$output['data']['exchangeUsd'] = $decode['rates']['USD'];
+  $output['data']['exchangeGbp'] = $decode['rates']['GBP'];
+  $output['data']['exchangeEur'] = $decode['rates']['EUR'];
+
 
 	echo json_encode($output); 
 
