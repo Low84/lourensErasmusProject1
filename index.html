@@ -163,6 +163,8 @@
                         url: "./php/countryInfoAPI.php?country=" + countryCode,
                         success: function (country_data) {
                             country_data = $.parseJSON(country_data)
+                            let isoA3 = country_data['data']['isoAlpha3'];
+                            console.log(isoA3)
 
                             // Weather API call
                             $.ajax({
