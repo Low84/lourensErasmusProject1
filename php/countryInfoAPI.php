@@ -23,6 +23,9 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['data']['capital'] = $decode['geonames'][0]['capital'];
+  $output['data']['population'] = $decode['geonames'][0]['population'];
+  $output['data']['isoAlpha3'] = $decode['geonames'][0]['isoAlpha3'];
+
   
 	echo json_encode($output); 
 

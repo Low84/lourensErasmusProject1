@@ -51,7 +51,7 @@
     </nav>
     <div>
         <table>
-          <!-- Test button to see in console if apis get data -->
+            <!-- Test button to see in console if apis get data -->
             <tr>
                 <button id="btnRun">Test</button>
             </tr>
@@ -74,38 +74,42 @@
                 <div class="modal-body">
                     <table class="table">
                         <tbody>
-                          <tr>
-                              <th>Currency:</th>
-                              <td id="currency"></td>
+                            <tr>
+                                <th>Currency:</th>
+                                <td id="currency"></td>
+                            </tr>
+                            <tr>
+                                <th>Calling Code:</th>
+                                <td id="calling_code"></td>
+                            </tr>
+                            <tr>
+                                <th>Coordinates:</th>
+                                <td id="coord"></td>
+                            </tr>
+                            <tr>
+                                <th>Continent:</th>
+                                <td id="continent"></td>
+                            </tr>
+                            <tr>
+                                <th>Flag:</th>
+                                <td id="flag"></td>
+                            </tr>
+                            <tr>
+                                <th>Capital:</th>
+                                <td id="capital"></td>
+                            </tr>
+                            <tr>
+                                <th>Population:</th>
+                                <td id="population"></td>
                           </tr>
                           <tr>
-                              <th>Calling Code:</th>
-                              <td id="calling_code"></td>
+                                <th>Current Temperature:</th>
+                                <td id="weather"></td>
                           </tr>
                           <tr>
-                              <th>Coordinates:</th>
-                              <td id="coord"></td>
+                              <th>Wikipedia Summary:</th>
+                              <td id="wiki"></td>
                           </tr>
-                          <tr>
-                              <th>Continent:</th>
-                              <td id="continent"></td>
-                          </tr>
-                          <tr>
-                              <th>Flag:</th>
-                              <td id="flag"></td>
-                          </tr>
-                          <tr>
-                              <th>Capital:</th>
-                              <td id="capital"></td>
-                          </tr>
-                          <tr>
-                            <th>Wikipedia Summary:</th>
-                            <td id="wikipedia"></td>
-                        </tr>
-                        <tr>
-                          <th>Current Weather:</th>
-                          <td id="weather"></td>
-                      </tr>
                         </tbody>
                     </table>
                 </div>
@@ -142,137 +146,100 @@
             });
         });
 
-
         $('#sel_country').change(function () {
             let countryName = $('#sel_country option:selected').text();
+            let countryCode = $('#sel_country').val();
             $.ajax({
                 type: "GET",
                 dataType: "json",
                 url: "./php/latAndLongAPI.php?country=" + countryName,
-                success: function (data) {
-                    console.log(data);
-                    lat = data['data']['lat'];
-                    lng = data['data']['lng']
+                success: function (geo_data) {
+                    console.log(geo_data);
+                    lat = geo_data['data']['lat'];
+                    lng = geo_data['data']['lng']
                     getLocation(lat, lng, countryName);
-                    CountryInfo(data)
+
+                    // CountryInfo API call
+                    $.ajax({
+                        type: 'GET',
+                        url: "./php/countryInfoAPI.php?country=" + countryCode,
+                        success: function (country_data) {
+                            country_data = $.parseJSON(country_data)
+
+                            // Weather API call
+                            $.ajax({
+                                type: 'GET',
+                                url: "./php/weatherAPI.php?country=" + countryName,
+                                success: function (weather_data) {
+                                  weather_data = $.parseJSON(weather_data)
+                                  // Wikipedia API call
+                                  $.ajax({
+                                      type: 'GET',
+                                      url: "./php/wikipediaAPI.php?country=" + countryName,
+                                      success: function (wiki_data) {
+                                          wiki_data = $.parseJSON(wiki_data)
+                                          CountryInfo(geo_data, country_data, weather_data, wiki_data) 
+
+                                      },
+                                      error: function (jqXHR, textStatus, errorThrown) {
+                                          // your error code
+                                          console.log('in error')
+                                          console.log(errorThrown);
+                                          console.log(textStatus)
+                                          console.log(jqXHR)
 
 
+                                      }
+                                  });
+
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    // your error code
+                                    console.log('in error')
+                                    console.log(errorThrown);
+                                    console.log(textStatus)
+                                    console.log(jqXHR)
+
+                                }
+                            });
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            // your error code
+                            console.log('in error')
+                            console.log(errorThrown);
+                            console.log(textStatus)
+                            console.log(jqXHR)
+                        }
+                    });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     // console.log(errorThrown);
                 }
-
             })
-
         });
-
 
         // Temp location for the modal trigger, ideally this should be moved to another function which will call the api's to get
         // the oountries info
-        function CountryInfo(data) {
-            $('#currency').html(data['currency']);
-            $('#calling_code').html(data['calling']);
-            $('#coord').html(data['coord']['lat'] + ' ' + data['coord']['lng']);
-            $('#continent').html(data['continent']);
-            $('#country').html(data['country']);
-            $('#flag').html(data['flag']);
-            // capital
-            $('#capital').html(['data']['capital']);
+        function CountryInfo(geo_data, country_data, weather_data, wiki_data) {
+            $('#currency').html(geo_data['currency']);
+            $('#calling_code').html(geo_data['calling']);
+            $('#coord').html(geo_data['coord']['lat'] + ' ' + geo_data['coord']['lng']);
+            $('#continent').html(geo_data['continent']);
+            $('#country').html(geo_data['country']);
+            $('#flag').html(geo_data['flag']);
+            // From countryInfoAPI
+            $('#capital').html(country_data['data']['capital']);
+            $('#population').html(country_data['data']['population']);
+            // From weatherAPI
+            $('#weather').html(weather_data['data']['temperature'] + '°C');
+            // From wikipediaAPI
+            $('#wiki').html(wiki_data['data']['wikipedia']);
+
 
             $('.info').modal('show');
 
         }
-
-        $('#btnRun').click(function () {
-            let countryCode = $('#sel_country').val();
-            console.log(countryCode);
-            $.ajax({
-                type: 'GET',
-                url: "./php/countryInfoAPI.php?country=" + countryCode,
-                success: function (data) {
-
-                    console.log(data);
-                    CountryInfo(data);
-                    // if (result.status.name == "ok") {
-
-                    //     $('#capital').html(result['data']['capital']);
-
-                    // }
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    // your error code
-                    console.log('in error')
-                    console.log(errorThrown);
-                    console.log(textStatus)
-                    console.log(jqXHR)
-
-
-                }
-            });
-
-        });
-
-        $('#btnRun').click(function () {
-          let countryName = $('#sel_country option:selected').text();
-            console.log(countryName);
-            $.ajax({
-                type: 'GET',
-                url: "./php/wikipediaAPI.php?country=" + countryName,
-                success: function (data) {
-
-                    console.log(data);
-
-                    // if (result.status.name == "ok") {
-
-                        // $('#wikipedia').html(result['data'][0]['capital']);
-
-                    // }
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    // your error code
-                    console.log('in error')
-                    console.log(errorThrown);
-                    console.log(textStatus)
-                    console.log(jqXHR)
-
-
-                }
-            });
-
-        });
-
-        $('#btnRun').click(function () {
-          let countryName = $('#sel_country option:selected').text();
-            console.log(countryName);
-            $.ajax({
-                type: 'GET',
-                url: "./php/weatherAPI.php?country=" + countryName,
-                success: function (data) {
-
-                    console.log(data);
-
-                    // if (result.status.name == "ok") {
-
-                        // $('#weather').html(result['data'][0]['capital']);
-
-                    // }
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    // your error code
-                    console.log('in error')
-                    console.log(errorThrown);
-                    console.log(textStatus)
-                    console.log(jqXHR)
-
-
-                }
-            });
-
-        });
-
 
         // countryName will not always have a value so assigning a default value which can be overwritten
         function getLocation(lat, lng, countryName = 'Your home') {
