@@ -233,7 +233,7 @@
             $('#weather').html(weather_data['data']['temperature'] + '°C');
             // From wikipediaAPI
             // $('#wikiUrl').html(wiki_data['data']['wikipediaURL']);
-            $('#wikiUrl').html('<a href="https://' + $(wiki_data["data"]["wikipedia"]["wikipediaURL"]) + '" target="_blank">Wikipedia Page</a>');
+            $('#wikiUrl').html('<a href="https://' + (wiki_data["data"]["wikipediaURL"]) + '" target="_blank">Wikipedia Page</a>');
             $('#wiki').html(wiki_data['data']['wikipedia']);
 
 
