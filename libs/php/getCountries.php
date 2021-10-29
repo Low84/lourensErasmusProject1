@@ -1,4 +1,5 @@
 <?php 
+
 $string = file_get_contents("../data/countryBorders.geo.json");
 $json = json_decode($string);
 $features = $json->features;
