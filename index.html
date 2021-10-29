@@ -180,7 +180,7 @@
                             // Exchange API call
                             $.ajax({
                                 type: 'GET',
-                                url: "./php/wikipediaAPI.php?country=" + currencyCode,
+                                url: "./php/exchangeAPI.php?country=" + currencyCode,
                                 success: function (exchange_data) {
                                   exchange_data = $.parseJSON(exchange_data)
 
