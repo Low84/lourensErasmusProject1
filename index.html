@@ -4,7 +4,11 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta name="author" content="Lourens Erasmus">
+    <meta name="description" content="Geolocation Website">
+    <meta name="keywords" content="leaflet, maps, info, geolocation">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -175,14 +179,17 @@
                         success: function (country_data) {
                             country_data = $.parseJSON(country_data)
                             currencyCode = country_data['data']['currencyCode'];
-                            // console.log(currencyCode)
+                            console.log(currencyCode)
 
                             // Exchange API call
                             $.ajax({
                                 type: 'GET',
-                                url: "./php/exchangeAPI.php?country=" + currencyCode,
+                                url: "./php/exchangeAPI.php?currencyCode=" + currencyCode,
                                 success: function (exchange_data) {
                                   exchange_data = $.parseJSON(exchange_data)
+                                  console.log(exchange_data['data']['exchangeUsd']);
+                                  console.log(exchange_data['data']['exchangeGbp']);
+                                  console.log(exchange_data['data']['exchangeEur']);
 
                                 // Weather API call
                                   $.ajax({
@@ -190,7 +197,6 @@
                                       url: "./php/weatherAPI.php?country=" + countryName,
                                       success: function (weather_data) {
                                         weather_data = $.parseJSON(weather_data)
-
                                         // Wikipedia API call
                                         $.ajax({
                                             type: 'GET',
@@ -268,9 +274,18 @@
             $('#currencyExchange').html('1 ' + country_data['data']['currencyCode'] + ' will exchange for:');
 
             // From exchangeAPI
-            $('#usd').html('$ ' + country_data['data']['exchangeUsd']);
-            $('#gbp').html('£ ' + country_data['data']['exchangeGbp']);
-            $('#eur').html('€ ' + country_data['data']['exchangeEur']);
+            let dollar = exchange_data['data']['exchangeUsd'];
+            let pound = exchange_data['data']['exchangeGbp'];
+            let euro = exchange_data['data']['exchangeEur'];
+            dollar = dollar.toFixed(2);
+            pound = pound.toFixed(2);
+            euro = euro.toFixed(2);
+            // $('#usd').html('$ ' + exchange_data['data']['exchangeUsd']);
+            $('#usd').html('$ ' + dollar);
+            // $('#gbp').html('£ ' + exchange_data['data']['exchangeGbp']);
+            $('#gbp').html('£ ' + pound);
+            // $('#eur').html('€ ' + exchange_data['data']['exchangeEur']);
+            $('#eur').html('€ ' + euro);
             
             // From weatherAPI
             $('#weather').html(weather_data['data']['temperature'] + '°C');
