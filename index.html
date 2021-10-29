@@ -266,12 +266,17 @@
             $('#coord').html(geo_data['coord']['lat'] + ' ' + geo_data['coord']['lng']);
             $('#continent').html(geo_data['continent']);
             $('#country').html(geo_data['country']);
-            $('#flag').html(geo_data['flag']);
+            // $('#flag').html(geo_data['flag']);
 
             // From countryInfoAPI
+            let flagCode = country_data['data']['countCode'];
+            flagCode = flagCode.toLowerCase();
+
             $('#capital').html(country_data['data']['capital']);
             $('#population').html(country_data['data']['population']);
             $('#currencyExchange').html('1 ' + country_data['data']['currencyCode'] + ' will exchange for:');
+            $('#flag').html('<img src="https://flagcdn.com/w40/' + flagCode + '.png" srcset="https://flagcdn.com/w40/' + flagCode + '.png 2x" width="40">');
+
 
             // From exchangeAPI
             let dollar = exchange_data['data']['exchangeUsd'];
@@ -280,11 +285,8 @@
             dollar = dollar.toFixed(2);
             pound = pound.toFixed(2);
             euro = euro.toFixed(2);
-            // $('#usd').html('$ ' + exchange_data['data']['exchangeUsd']);
             $('#usd').html('$ ' + dollar);
-            // $('#gbp').html('£ ' + exchange_data['data']['exchangeGbp']);
             $('#gbp').html('£ ' + pound);
-            // $('#eur').html('€ ' + exchange_data['data']['exchangeEur']);
             $('#eur').html('€ ' + euro);
             
             // From weatherAPI

@@ -25,6 +25,7 @@
 	$output['data']['capital'] = $decode['geonames'][0]['capital'];
   $output['data']['population'] = $decode['geonames'][0]['population'];
   $output['data']['currencyCode'] = $decode['geonames'][0]['currencyCode'];
+  $output['data']['countCode'] = $decode['geonames'][0]['countryCode'];
 
   
 	echo json_encode($output); 
