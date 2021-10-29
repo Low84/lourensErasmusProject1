@@ -95,6 +95,16 @@
                                 <td id="population"></td>
                             </tr>
                             <tr>
+                                <th id="currencyExchange"></th>
+                                <td>
+                                  <ul id="excRateList">
+                                    <li id="usd"></li>
+                                    <li id="gbp"></li>
+                                    <li id="eur"></li>
+                                  </ul>
+                                </td>
+                            </tr>
+                            <tr>
                                 <th>Current Temperature:</th>
                                 <td id="weather"></td>
                             </tr>
@@ -147,6 +157,7 @@
         $('#sel_country').change(function () {
             let countryName = $('#sel_country option:selected').text();
             let countryCode = $('#sel_country').val();
+            let currencyCode;
             $.ajax({
                 type: "GET",
                 dataType: "json",
@@ -163,24 +174,45 @@
                         url: "./php/countryInfoAPI.php?country=" + countryCode,
                         success: function (country_data) {
                             country_data = $.parseJSON(country_data)
-                            let isoA3 = country_data['data']['isoAlpha3'];
-                            console.log(isoA3)
+                            currencyCode = country_data['data']['currencyCode'];
+                            // console.log(currencyCode)
 
-                            // Weather API call
+                            // Exchange API call
                             $.ajax({
                                 type: 'GET',
-                                url: "./php/weatherAPI.php?country=" + countryName,
-                                success: function (weather_data) {
-                                  weather_data = $.parseJSON(weather_data)
-                                  // Wikipedia API call
+                                url: "./php/wikipediaAPI.php?country=" + currencyCode,
+                                success: function (exchange_data) {
+                                  exchange_data = $.parseJSON(exchange_data)
+
+                                // Weather API call
                                   $.ajax({
                                       type: 'GET',
-                                      url: "./php/wikipediaAPI.php?country=" + countryName,
-                                      success: function (wiki_data) {
-                                          wiki_data = $.parseJSON(wiki_data)
-                                          CountryInfo(geo_data, country_data, weather_data, wiki_data) 
+                                      url: "./php/weatherAPI.php?country=" + countryName,
+                                      success: function (weather_data) {
+                                        weather_data = $.parseJSON(weather_data)
+
+                                        // Wikipedia API call
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: "./php/wikipediaAPI.php?country=" + countryName,
+                                            success: function (wiki_data) {
+                                                wiki_data = $.parseJSON(wiki_data)
+                                                CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_data) 
+
+                                            },
+                                            // Wikipedia API error function
+                                            error: function (jqXHR, textStatus, errorThrown) {
+                                                // your error code
+                                                console.log('in error')
+                                                console.log(errorThrown);
+                                                console.log(textStatus)
+                                                console.log(jqXHR)
+
+                                            }
+                                        });
 
                                       },
+                                      // Weather API error function
                                       error: function (jqXHR, textStatus, errorThrown) {
                                           // your error code
                                           console.log('in error')
@@ -188,57 +220,66 @@
                                           console.log(textStatus)
                                           console.log(jqXHR)
 
-
                                       }
                                   });
 
                                 },
+                                // Exchange API error function
                                 error: function (jqXHR, textStatus, errorThrown) {
-                                    // your error code
-                                    console.log('in error')
-                                    console.log(errorThrown);
-                                    console.log(textStatus)
-                                    console.log(jqXHR)
+                                  // your error code
+                                  console.log('in error')
+                                  console.log(errorThrown);
+                                  console.log(textStatus)
+                                  console.log(jqXHR)
 
                                 }
-                            });
+                              });
 
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            // your error code
-                            console.log('in error')
-                            console.log(errorThrown);
-                            console.log(textStatus)
-                            console.log(jqXHR)
-                        }
-                    });
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    // console.log(errorThrown);
-                }
-            })
-        });
+                          },
+                          // CountryInfo API error function
+                          error: function (jqXHR, textStatus, errorThrown) {
+                              // your error code
+                              console.log('in error')
+                              console.log(errorThrown);
+                              console.log(textStatus)
+                              console.log(jqXHR)
+                          }
+                      });
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                      // console.log(errorThrown);
+                  }
+              })
+          });
 
         // Temp location for the modal trigger, ideally this should be moved to another function which will call the api's to get
         // the oountries info
-        function CountryInfo(geo_data, country_data, weather_data, wiki_data) {
+        function CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_data) {
             $('#currency').html(geo_data['currency']);
             $('#calling_code').html(geo_data['calling']);
             $('#coord').html(geo_data['coord']['lat'] + ' ' + geo_data['coord']['lng']);
             $('#continent').html(geo_data['continent']);
             $('#country').html(geo_data['country']);
             $('#flag').html(geo_data['flag']);
+
             // From countryInfoAPI
             $('#capital').html(country_data['data']['capital']);
             $('#population').html(country_data['data']['population']);
+            $('#currencyExchange').html('1 ' + country_data['data']['currencyCode'] + ' will exchange for:');
+
+            // From exchangeAPI
+            $('#usd').html('$ ' + country_data['data']['exchangeUsd']);
+            $('#gbp').html('£ ' + country_data['data']['exchangeGbp']);
+            $('#eur').html('€ ' + country_data['data']['exchangeEur']);
+            
             // From weatherAPI
             $('#weather').html(weather_data['data']['temperature'] + '°C');
+
             // From wikipediaAPI
-            // $('#wikiUrl').html(wiki_data['data']['wikipediaURL']);
             $('#wikiUrl').html('<a href="https://' + (wiki_data["data"]["wikipediaURL"]) + '" target="_blank">Wikipedia Page</a>');
             $('#wiki').html(wiki_data['data']['wikipedia']);
 
-
+            // Modal
             $('.info').modal('show');
 
         }
