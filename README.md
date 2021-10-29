@@ -1,0 +1,1 @@
+This is a portfolio project which uses geolocation to give details of countries from a select list. It uses leaflet and mapbox render a map and various other APIs to render the info on the country selected.
