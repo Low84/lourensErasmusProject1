@@ -1,4 +1,4 @@
-        $(document).ready(function () {
+      $(document).ready(function () {
             $("#sel_country").empty();
             $.ajax({
                 type: "GET",
@@ -210,3 +210,7 @@
 
 
         }
+        
+        $(window).on('load', function () {
+          $('#loading').hide();
+        }) 
