@@ -15,6 +15,10 @@ th {
   font-weight: bolder;
 }
 
+tbody {
+  color: white;
+}
+
 #mapid { 
   height: 100%;
   margin: 0px;
@@ -22,7 +26,7 @@ th {
 }
 
 #sel_country {
-  background-color: rgba(236, 177, 16, 0.801) ;
+  background-color: #04446b;
   overflow-y: scroll; /* Add the ability to scroll */
 }
 
@@ -38,11 +42,11 @@ th {
 }
 
 a {
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 a:hover {
-  color: white;
+  color: #eb94d0;
 }
 
 option {
@@ -51,7 +55,7 @@ option {
 }
 
 option:hover { 
-  background-color: rgb(209, 153, 0);
+  background-color: #42a5df;
   font-size: 1.35rem;
   font-weight: bold;
   font-style: italic;
@@ -72,7 +76,7 @@ option:hover {
 }
 
 .modal-header {
-  background-color: rgba(185, 91, 3, 0.5);
+  background-color: #81b8da;
 }
 
 .modal-title {
@@ -92,7 +96,12 @@ option:hover {
 }
 
 #modalButton {
-  background-color: rgb(160, 119, 7);
+  background: #eb94d0;
+  background-image: -webkit-linear-gradient(top, #eb94d0, #2079b0);  
+  background-image: -moz-linear-gradient(top, #eb94d0, #2079b0);  
+  background-image: -ms-linear-gradient(top, #eb94d0, #2079b0);  
+  background-image: -o-linear-gradient(top, #eb94d0, #2079b0);  
+  background-image: linear-gradient(to bottom, #eb94d0, #2079b0);
   font-size: 1.4rem;
   width: 40%;
   margin: auto;
@@ -101,10 +110,13 @@ option:hover {
 .info {
   outline: none;
   overflow:hidden;
+    color: white !important;
+
 }
 
 .modal-footer {
-  background-color: rgba(185, 91, 3, 0.5);
+  /* background-color: rgba(185, 91, 3, 0.5); */
+  background-color: #81b8da;
 }
 
 /* .modal-header {
@@ -118,6 +130,6 @@ option:hover {
 .modal-body {
   height: 80vh;
   overflow-y: auto;
-  background-color: rgba(236, 178, 16, 0.479) !important;
+  background-color: #04446b;
   font-size: 1.2rem;
 }
