@@ -120,10 +120,9 @@
             $('#coord').html(geo_data['coord']['lat'] + ' ' + geo_data['coord']['lng']);
             $('#continent').html(geo_data['continent']);
             $('#country').html(geo_data['country']);
-            // $('#flag').html(geo_data['flag']);
+            $('#countryName').html(geo_data['country']);
 
             // From countryInfoAPI
-
             let flagCode = country_data['data']['countCode'];
             flagCode = flagCode.toLowerCase();
 
