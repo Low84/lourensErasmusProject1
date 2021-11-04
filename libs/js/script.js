@@ -116,7 +116,7 @@
         // the oountries info
         function CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_data) {
             $('#currency').html(geo_data['currency']);
-            $('#calling_code').html(geo_data['calling']);
+            $('#calling_code').html('+' + geo_data['calling']);
             $('#coord').html(geo_data['coord']['lat'] + ' ' + geo_data['coord']['lng']);
             $('#continent').html(geo_data['continent']);
             $('#country').html(geo_data['country']);
