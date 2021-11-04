@@ -172,7 +172,7 @@
                 }).addTo(mymap);
 
             L.marker([lat, lng]).addTo(mymap)
-                .bindPopup("<h6>Hello!</h6><br />You selected " + countryName).openPopup();
+                .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
 
             // Adds a circle to clicked area
             L.circle([lat, lng], 500, {
