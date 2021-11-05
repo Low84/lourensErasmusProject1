@@ -19,6 +19,12 @@ tbody {
   color: white;
 }
 
+#markerPopup {
+  font-size: 1.5rem;
+  font-family: 'Dosis', sans-serif;
+  line-height: 2rem;
+}
+
 #mapid { 
   height: 100%;
   margin: 0px;
