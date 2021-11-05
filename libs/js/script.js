@@ -49,13 +49,13 @@ $('#sel_country').change(function () {
                           // Weather API call
                           $.ajax({
                               type: 'GET',
-                              url: "./libs/php/weatherAPI.php?country=" + countryName,
+                              url: "./libs/php/weatherAPI.php?country=" + countryName.replace(/ /g, ''),
                               success: function (weather_data) {
                                   weather_data = $.parseJSON(weather_data)
                                   // Wikipedia API call
                                   $.ajax({
                                       type: 'GET',
-                                      url: "./libs/php/wikipediaAPI.php?country=" + countryName,
+                                      url: "./libs/php/wikipediaAPI.php?country=" + countryName.replace(/ /g, ''),
                                       success: function (wiki_data) {
                                           wiki_data = $.parseJSON(wiki_data)
                                           CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_data)
@@ -179,7 +179,8 @@ function getLocation(lat, lng, countryName = 'Your home') {
           color: "#04446b",
           weight: 4,
           opacity: 1,
-          fillOpacity: 0.0 
+          fillColor: '#04446b',
+          fillOpacity: 0.3 
         }).addTo(myMap);
       
       });
@@ -194,14 +195,50 @@ function getLocation(lat, lng, countryName = 'Your home') {
           zoomOffset: -1
       }).addTo(myMap);
 
-      L.tileLayer('http://tiles.mapc.org/trailmap-onroad/{z}/{x}/{y}.png',
-      {
-        maxZoom: 17,
-        minZoom: 9
-      }).addTo(myMap);
-
   L.marker([lat, lng]).addTo(myMap)
       .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
+  
+      // clustermarkers code
+
+      var myURL = jQuery('script[src$="script.js"]')
+        .attr('src')
+        .replace('script.js', '')
+
+      var myIcon = L.icon({
+        iconUrl: myURL + '../images/pin24.png',
+        iconRetinaUrl: myURL + '../images/pin48.png',
+        iconSize: [29, 24],
+        iconAnchor: [9, 21],
+        popupAnchor: [0, -14],
+      })
+
+      var markerClusters = L.markerClusterGroup()
+
+      for (var i = 0; i < markers.length; ++i) {
+        var popup =
+          '<div id="markerPopup"><b>' + markers[i].name + '</b>' +
+          '<hr/>' +
+          markers[i].city +
+          '<br/><b>IATA/FAA:</b> ' +
+          markers[i].iata_faa +
+          '<br/><b>ICAO:</b> ' +
+          markers[i].icao +
+          '<br/><b>Altitude:</b> ' +
+          Math.round(markers[i].alt * 0.3048) +
+          ' m' +
+          '<br/><b>Timezone:</b> ' +
+          markers[i].tz + '</div>'
+
+        var m = L.marker([markers[i].lat, markers[i].lng], {
+          icon: myIcon,
+        }).bindPopup(popup)
+
+        markerClusters.addLayer(m)
+      }
+
+      myMap.addLayer(markerClusters)
+
+      // end of clustermarkers code
 
   // Adds a circle to clicked area
   L.circle([lat, lng], 500, {
@@ -210,19 +247,19 @@ function getLocation(lat, lng, countryName = 'Your home') {
       fillOpacity: 0.5
   }).addTo(myMap);
 
+
   // Adds a popup with clicked coordinates
-  var popup = L.popup();
+  // var popup = L.popup();
 
-  function onMapClick(e) {
-      popup
-          .setLatLng(e.latlng)
-          .setContent("You clicked the map at " + e.latlng.toString())
-          .openOn(myMap);
-  }
-  myMap.on('click', onMapClick);
+  // function onMapClick(e) {
+  //     popup
+  //         .setLatLng(e.latlng)
+  //         .setContent("You clicked the map at " + e.latlng.toString())
+  //         .openOn(myMap);
+  // }
+  // myMap.on('click', onMapClick);
+
 }
-
-
 
 // Get current users location and update map to coordinates found
 $(document).ready(function () {
@@ -257,7 +294,7 @@ function showError(error) {
   }
 }
 
-
+// Preloader
 $(window).on('load', function () {
   $('#loading').hide();
 })
