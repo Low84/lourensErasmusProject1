@@ -248,11 +248,11 @@ function getLocation(lat, lng, countryName = 'Your home') {
       // end of clustermarkers code
 
   // Adds a circle to clicked area
-  L.circle([lat, lng], 500, {
-      color: 'red',
-      fillColor: '#f03',
-      fillOpacity: 0.5
-  }).addTo(myMap);
+  // L.circle([lat, lng], 500, {
+  //     color: 'red',
+  //     fillColor: '#f03',
+  //     fillOpacity: 0.5
+  // }).addTo(myMap);
 
 
   // Adds a popup with clicked coordinates
