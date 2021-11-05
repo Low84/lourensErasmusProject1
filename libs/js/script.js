@@ -161,6 +161,7 @@ function getLocation(lat, lng, countryName = 'Your home') {
   var container = L.DomUtil.get('mapid'); if (container != null) { container._leaflet_id = null; }
   myMap = L.map('mapid').setView([lat, lng], 5.5);
 
+  // Function to draw line around country border
   applyCountryBorder(myMap, countryName);
 
   function applyCountryBorder(myMap, countryName) {
@@ -175,16 +176,22 @@ function getLocation(lat, lng, countryName = 'Your home') {
       })
       .then(function(data) {
         
-        L.geoJSON(data[0].geojson, {
+        var border = L.geoJSON(data[0].geojson, {
           color: "#04446b",
           weight: 4,
           opacity: 1,
           fillColor: '#04446b',
           fillOpacity: 0.3 
-        }).addTo(myMap);
+        });
+        border.addTo(myMap);
+
+        myMap.fitBounds(border.getBounds());
       
       });
     }
+    // End of function for line around country border
+
+    // Tile layer for leaflet
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
       {
           maxZoom: 18,
