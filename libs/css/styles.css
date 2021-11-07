@@ -26,9 +26,10 @@ tbody {
 }
 
 #mapid { 
-  height: 100%;
+  height: 94%;
   margin: 0px;
   overflow: hidden; 
+  width: 100%;
 }
 
 #sel_country {
