@@ -1,3 +1,6 @@
+let myMap;
+
+
 $(document).ready(function () {
 
   $("#sel_country").empty();
@@ -145,7 +148,7 @@ function CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_d
   $('#eur').html('€ ' + euro);
 
   // From weatherAPI
-  $('#weather').html(weather_data['data']['temperature'] + '°C');
+  $('#weather').html(weather_data['data']['temperature']);
 
   // From wikipediaAPI
   $('#wikiUrl').html('<a href="https://' + (wiki_data["data"]["wikipediaURL"]) + '" target="_blank">Wikipedia Page</a>');
@@ -162,21 +165,47 @@ function getLocation(lat, lng, countryName = 'Your home') {
   myMap = L.map('mapid').setView([lat, lng], 5.5);
 
   // Function to draw line around country border
-  applyCountryBorder(myMap, countryName);
+  // applyCountryBorder(myMap, countryName);
 
-  function applyCountryBorder(myMap, countryName) {
+  // function applyCountryBorder(myMap, countryName) {
+  //   jQuery
+  //     .ajax({
+  //       type: "GET",
+  //       dataType: "json",
+  //       url:
+  //         "https://nominatim.openstreetmap.org/search?country=" +
+  //         countryName.trim() +
+  //         "&polygon_geojson=1&format=json"
+  //     })
+  //     .then(function(data) {
+        
+  //       var border = L.geoJSON(data[0].geojson, {
+  //         color: "#04446b",
+  //         weight: 4,
+  //         opacity: 1,
+  //         fillColor: '#04446b',
+  //         fillOpacity: 0.3 
+  //       });
+  //       border.addTo(myMap);
+
+  //       myMap.fitBounds(border.getBounds());
+      
+  //     });
+  //   }
+    // End of function for line around country border
+ applyCountryBorder(countryName);
+
+  function applyCountryBorder(countryCode) {
     jQuery
       .ajax({
         type: "GET",
         dataType: "json",
         url:
-          "https://nominatim.openstreetmap.org/search?country=" +
-          countryName.trim() +
-          "&polygon_geojson=1&format=json"
+          "./libs/php/getBorder.php"
       })
       .then(function(data) {
         
-        var border = L.geoJSON(data[0].geojson, {
+        var border = L.geoJSON(data, {
           color: "#04446b",
           weight: 4,
           opacity: 1,
@@ -189,8 +218,6 @@ function getLocation(lat, lng, countryName = 'Your home') {
       
       });
     }
-    // End of function for line around country border
-
     // Tile layer for leaflet
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
       {
@@ -201,52 +228,54 @@ function getLocation(lat, lng, countryName = 'Your home') {
           tileSize: 512,
           zoomOffset: -1
       }).addTo(myMap);
+      
+      
 
   L.marker([lat, lng]).addTo(myMap)
       .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
   
       // clustermarkers code
 
-      var myURL = jQuery('script[src$="script.js"]')
-        .attr('src')
-        .replace('script.js', '')
+      // var myURL = jQuery('script[src$="script.js"]')
+      //   .attr('src')
+      //   .replace('script.js', '')
 
-      var myIcon = L.icon({
-        iconUrl: myURL + '../images/pin24.png',
-        iconRetinaUrl: myURL + '../images/pin48.png',
-        iconSize: [29, 24],
-        iconAnchor: [9, 21],
-        popupAnchor: [0, -14],
-      })
+      // var myIcon = L.icon({
+      //   iconUrl: myURL + '../images/pin24.png',
+      //   iconRetinaUrl: myURL + '../images/pin48.png',
+      //   iconSize: [29, 24],
+      //   iconAnchor: [9, 21],
+      //   popupAnchor: [0, -14],
+      // })
 
-      var markerClusters = L.markerClusterGroup()
+      // var markerClusters = L.markerClusterGroup()
 
-      for (var i = 0; i < markers.length; ++i) {
-        var popup =
-          '<div id="markerPopup"><b>' + markers[i].name + '</b>' +
-          '<hr/>' +
-          markers[i].city +
-          '<br/><b>IATA/FAA:</b> ' +
-          markers[i].iata_faa +
-          '<br/><b>ICAO:</b> ' +
-          markers[i].icao +
-          '<br/><b>Altitude:</b> ' +
-          Math.round(markers[i].alt * 0.3048) +
-          ' m' +
-          '<br/><b>Timezone:</b> ' +
-          markers[i].tz + '</div>'
+      // for (var i = 0; i < markers.length; ++i) {
+      //   var popup =
+      //     '<div id="markerPopup"><b>' + markers[i].name + '</b>' +
+      //     '<hr/>' +
+      //     markers[i].city +
+      //     '<br/><b>IATA/FAA:</b> ' +
+      //     markers[i].iata_faa +
+      //     '<br/><b>ICAO:</b> ' +
+      //     markers[i].icao +
+      //     '<br/><b>Altitude:</b> ' +
+      //     Math.round(markers[i].alt * 0.3048) +
+      //     ' m' +
+      //     '<br/><b>Timezone:</b> ' +
+      //     markers[i].tz + '</div>'
 
-        var m = L.marker([markers[i].lat, markers[i].lng], {
-          icon: myIcon,
-        }).bindPopup(popup)
+      //   var m = L.marker([markers[i].lat, markers[i].lng], {
+      //     icon: myIcon,
+      //   }).bindPopup(popup)
 
-        markerClusters.addLayer(m)
-      }
+      //   markerClusters.addLayer(m)
+      // }
 
-      myMap.addLayer(markerClusters)
+      // myMap.addLayer(markerClusters)
 
       // end of clustermarkers code
-
+      
   // Adds a circle to clicked area
   // L.circle([lat, lng], 500, {
   //     color: 'red',
