@@ -6,6 +6,7 @@ $features = $json['features'];
 // echo '<pre>' . print_r($json, true) . '</pre>';
 
 $country_code = $_GET['countryCode'];
+// echo '<pre>' . print_r($country_code) . '</pre>';
 
 $output_geom = "";
 for($i=0;$i<sizeof($features);$i++){
