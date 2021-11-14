@@ -1,6 +1,4 @@
 let myMap;
-
-
 $(document).ready(function () {
 
   $("#sel_country").empty();
@@ -16,10 +14,44 @@ $(document).ready(function () {
   });
 });
 
+
+
+
+
+
 $('#sel_country').change(function () {
   let countryName = $('#sel_country option:selected').text();
   let countryCode = $('#sel_country').val();
   let currencyCode;
+  // Playing with countryborder function
+  function applyCountryBorder(code) {
+    console.log(code);
+    jQuery
+      .ajax({
+        type: "GET",
+        dataType: "json",
+        url:
+          "./libs/php/getBorder.php?countryCode=" + code,
+      })
+      .then(function(data) {
+        console.log(data);
+        
+        var border = L.geoJSON(data, {
+          color: "#04446b",
+          weight: 4,
+          opacity: 1,
+          fillColor: '#04446b',
+          fillOpacity: 0.3 
+        });
+        border.addTo(myMap);
+  
+        myMap.fitBounds(border.getBounds());
+      
+      });
+    }
+    // end of function
+    applyCountryBorder(countryCode);  
+
   $.ajax({
       type: "GET",
       dataType: "json",
@@ -164,6 +196,9 @@ function getLocation(lat, lng, countryName = 'Your home') {
   var container = L.DomUtil.get('mapid'); if (container != null) { container._leaflet_id = null; }
   myMap = L.map('mapid').setView([lat, lng], 5.5);
 
+
+
+
   // Function to draw line around country border
   // applyCountryBorder(myMap, countryName);
 
@@ -193,31 +228,35 @@ function getLocation(lat, lng, countryName = 'Your home') {
   //     });
   //   }
     // End of function for line around country border
- applyCountryBorder(countryName);
 
-  function applyCountryBorder(countryCode) {
-    jQuery
-      .ajax({
-        type: "GET",
-        dataType: "json",
-        url:
-          "./libs/php/getBorder.php"
-      })
-      .then(function(data) {
+
+
+    
+//  applyCountryBorder(countryName);
+
+  // function applyCountryBorder(countryCode) {
+  //   jQuery
+  //     .ajax({
+  //       type: "GET",
+  //       dataType: "json",
+  //       url:
+  //         "./libs/php/getBorder.php"
+  //     })
+  //     .then(function(data) {
         
-        var border = L.geoJSON(data, {
-          color: "#04446b",
-          weight: 4,
-          opacity: 1,
-          fillColor: '#04446b',
-          fillOpacity: 0.3 
-        });
-        border.addTo(myMap);
+  //       var border = L.geoJSON(data, {
+  //         color: "#04446b",
+  //         weight: 4,
+  //         opacity: 1,
+  //         fillColor: '#04446b',
+  //         fillOpacity: 0.3 
+  //       });
+  //       border.addTo(myMap);
 
-        myMap.fitBounds(border.getBounds());
+  //       myMap.fitBounds(border.getBounds());
       
-      });
-    }
+  //     });
+  //   }
     // Tile layer for leaflet
   L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
       {
@@ -229,8 +268,6 @@ function getLocation(lat, lng, countryName = 'Your home') {
           zoomOffset: -1
       }).addTo(myMap);
       
-      
-
   L.marker([lat, lng]).addTo(myMap)
       .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
   
