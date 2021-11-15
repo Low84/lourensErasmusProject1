@@ -124,7 +124,28 @@ $(document).ready(function () {
                                        success: function (wiki_data) {
                                            wiki_data = $.parseJSON(wiki_data)
                                            CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_data)
-                                           cities(country_data); 
+
+
+                                           // City API call
+                                            $.ajax({
+                                              type: 'GET',
+                                              url: "./libs/php/citiesAPI.php?north=" + north + "?south=" + south + "?east=" + east + "?west=" + west,
+                                              success: function (result) {
+                                                console.log(JSON.stringify(result));
+                                                  
+
+                                                  
+                                              },
+                                              // City API error function
+                                              error: function (jqXHR, textStatus, errorThrown) {
+                                                  // your error code
+                                                  console.log('in error')
+                                                  console.log(errorThrown);
+                                                  console.log(textStatus)
+                                                  console.log(jqXHR)
+
+                                              }
+                                          });
                                        },
                                        // Wikipedia API error function
                                        error: function (jqXHR, textStatus, errorThrown) {
