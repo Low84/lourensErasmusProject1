@@ -1,4 +1,8 @@
 let myMap;
+let north;
+let south;
+let east;
+let west;
 $(document).ready(function () {
  
   myMap = L.map('mapid').setView([51.505, -0.09], 5.5);
@@ -86,7 +90,16 @@ $(document).ready(function () {
                success: function (country_data) {
                    country_data = $.parseJSON(country_data)
                    currencyCode = country_data['data']['currencyCode'];
-                   console.log(currencyCode)
+                   north = country_data['data']['north'];
+                   south = country_data['data']['south'];
+                   east = country_data['data']['east'];
+                   west = country_data['data']['west'];
+
+                   console.log(currencyCode);
+                   console.log(north);
+                   console.log(south);
+                   console.log(east);
+                   console.log(west);
   
                    // Exchange API call
                    $.ajax({
@@ -111,7 +124,7 @@ $(document).ready(function () {
                                        success: function (wiki_data) {
                                            wiki_data = $.parseJSON(wiki_data)
                                            CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_data)
-  
+                                           cities(country_data); 
                                        },
                                        // Wikipedia API error function
                                        error: function (jqXHR, textStatus, errorThrown) {
@@ -164,7 +177,9 @@ $(document).ready(function () {
        }
    })
  });
-  
+
+ 
+
  // Temp location for the modal trigger, ideally this should be moved to another function which will call the api's to get
  // the oountries info
  function CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_data) {
@@ -206,6 +221,12 @@ $(document).ready(function () {
    $('.info').modal('show');
   
  }
+
+ function cities(country_data) {
+  console.log(country_data['data']['north']);
+ }
+
+ 
   
  // countryName will not always have a value so assigning a default value which can be overwritten
  function getLocation(lat, lng, countryName = 'Your home') {
