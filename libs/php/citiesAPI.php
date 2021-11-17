@@ -10,7 +10,7 @@
 
 	$executionStartTime = microtime(true);
 
-	$url='http://api.geonames.org/citiesJSON?north=' . $north . '&south=' . $south . '&east=' . $east . '&west=' . $west . '&lang=de&username=lo84';
+	$url='http://api.geonames.org/citiesJSON?north=' . $north . '&south=' . $south . '&east=' . $east . '&west=' . $west . '&lang=en&username=lo84';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -26,13 +26,10 @@
   $output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
-	$output['data']['lat'] = $decode['geonames']['lat'];
-  $output['data']['lng'] = $decode['geonames']['lng'];
-  $output['data']['capName'] = $decode['geonames']['name'];
+	$output['data']['lat'] = $decode['geonames'][0]['lat'];
+  $output['data']['lng'] = $decode['geonames'][0]['lng'];
+  $output['data']['capName'] = $decode['geonames'][0]['name'];
  
-
-
-  
 	echo json_encode($output); 
 
 ?>
