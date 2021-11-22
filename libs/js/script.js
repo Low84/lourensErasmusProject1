@@ -1,5 +1,5 @@
 let myMap;
-
+ 
 $(document).ready(function () {
  
   myMap = L.map('mapid').setView([51.505, -0.09], 5.5);
@@ -14,9 +14,9 @@ $(document).ready(function () {
        tileSize: 512,
        zoomOffset: -1
    }).addTo(myMap);
-
+ 
    
-
+ 
    $("#sel_country").empty();
    $.ajax({
        type: "GET",
@@ -65,7 +65,6 @@ $(document).ready(function () {
  $('#sel_country').change(function () {
    let countryName = $('#sel_country option:selected').text();
    let countryCode = $('#sel_country').val();
-   let currencyCode;
    // Playing with countryborder function
    
    applyCountryBorder(countryCode);
@@ -81,112 +80,95 @@ $(document).ready(function () {
            lat = geo_data['data']['lat'];
            lng = geo_data['data']['lng']
            getLocation(lat, lng, countryName);
-  
+
+           $('#currency').html(geo_data['currency']);
+           $('#calling_code').html('+' + geo_data['calling']);
+           $('#coord').html(geo_data['coord']['lat'] + ' ' + geo_data['coord']['lng']);
+           $('#continent').html(geo_data['continent']);
+           $('#country').html(geo_data['country']);
+           $('#countryName').html(geo_data['country']);
+    
            // CountryInfo API call
            $.ajax({
                type: 'GET',
-               url: "./libs/php/countryInfoAPI.php?country=" + countryCode,
+               dataType: "json",
+               url: "./libs/php/getCountryRect.php?country=" + countryCode,
                success: function (country_data) {
-                   country_data = $.parseJSON(country_data)
-                   currencyCode = country_data['data']['currencyCode'];
+                 console.log(country_data);
+                   //country_data = $.parseJSON(country_data)
+                   const currencyCode = country_data['data']['currencyCode'];
                    const north = country_data['data']['north'];
                    const south = country_data['data']['south'];
                    const east = country_data['data']['east'];
                    const west = country_data['data']['west'];
-
+ 
                    console.log(currencyCode);
                    console.log(north);
                    console.log(south);
                    console.log(east);
                    console.log(west);
-  
-                   // Exchange API call
+
+                   let flagCode = country_data['data']['countCode'];
+                   flagCode = flagCode.toLowerCase();
+                  
+                   $('#capital').html(country_data['data']['capital']);
+                   $('#population').html(country_data['data']['population']);
+                   $('#currencyExchange').html('1 ' + country_data['data']['currencyCode'] + ' will exchange for:');
+                   $('#flag').html('<img src=https://flagcdn.com/w40/' + flagCode + '.png srcset=https://flagcdn.com/w40/' + flagCode + '.png 2x width="40">');
+ 
                    $.ajax({
-                       type: 'GET',
-                       url: "./libs/php/exchangeAPI.php?currencyCode=" + currencyCode,
-                       success: function (exchange_data) {
-                           exchange_data = $.parseJSON(exchange_data)
-                           console.log(exchange_data['data']['exchangeUsd']);
-                           console.log(exchange_data['data']['exchangeGbp']);
-                           console.log(exchange_data['data']['exchangeEur']);
+                    type: 'GET',
+                    dataType: "json",
+                    url: "./libs/php/citiesAPI.php",
+                    data: {
+                      north: north,
+                      south: south,
+                      east: east,
+                      west: west 
+                    },
+                      success: function (city_data) {
+                        //console.log(JSON.stringify(city_data))
+                        console.log(city_data);
   
-                           // Weather API call
-                           $.ajax({
-                               type: 'GET',
-                               url: "./libs/php/weatherAPI.php?country=" + countryName.replace(/ /g, ''),
-                               success: function (weather_data) {
-                                   weather_data = $.parseJSON(weather_data)
-                                   // Wikipedia API call
-                                   $.ajax({
-                                       type: 'GET',
-                                       url: "./libs/php/wikipediaAPI.php?country=" + countryName.replace(/ /g, ''),
-                                       success: function (wiki_data) {
-                                           wiki_data = $.parseJSON(wiki_data)
-                                           CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_data)
-
-
-                                           // City API call
-                                            $.ajax({
-                                              type: 'GET',
-                                              url: "./libs/php/citiesAPI.php",
-                                              data: {
-                                                north: north,
-                                                south: south,
-                                                east: east,
-                                                west: west 
-                                              },
-                                              success: function (city_data) {
-                                                console.log(JSON.stringify(city_data))
-                                                console.log(city_data['data'][0]['lat']);
-
-
-                                                if (city_data.status.name == "ok") {
-
-                                                  console.log(city_data['data'][0]['lat']);
-
-                                                  // $('#langitude').html((city_data['data'][0]['lat']);
-                                                  // $('#longitude').html((city_data['data'][0]['lng']);
-                                                  // $('#city').html((city_data['data'][0]['city']);
-                                                  // $('#population').html((city_data['data'][0]['population']);
-                                                }
-                                                  
-                                              },
-                                              // City API error function
-                                              error: function (jqXHR, textStatus, errorThrown) {
-                                                  // your error code
-                                                  console.log('in error')
-                                                  console.log(errorThrown);
-                                                  console.log(textStatus)
-                                                  console.log(jqXHR)
-
-                                              }
-                                          });
-                                       },
-                                       // Wikipedia API error function
-                                       error: function (jqXHR, textStatus, errorThrown) {
-                                           // your error code
-                                           console.log('in error')
-                                           console.log(errorThrown);
-                                           console.log(textStatus)
-                                           console.log(jqXHR)
+                        if (city_data.status.name == "ok") {
   
-                                       }
-                                   });
-  
-                               },
-                               // Weather API error function
-                               error: function (jqXHR, textStatus, errorThrown) {
-                                   // your error code
-                                   console.log('in error')
-                                   console.log(errorThrown);
-                                   console.log(textStatus)
-                                   console.log(jqXHR)
-  
-                               }
-                           });
-  
+                          console.log(city_data['data'][0]['lat']);
+                          console.log(city_data['data'][0]['lng']);
+                          console.log(city_data['data'][0]['name']);
+                          console.log(city_data['data'][0]['population']);
+
+                        }
+                          
+                      
+                    console.log(currencyCode);
+                   // Exchange API call
+                    $.ajax({
+                        type: 'GET',
+                        dataType: "json",
+                        url: "./libs/php/exchangeAPI.php",
+                        data: {
+                          currencyCode: currencyCode
+                        },
+                        success: function (exchange_data) {
+                            console.log(exchange_data);
+                            let dollar = exchange_data['data']['exchangeUsd'];
+                            let pound = exchange_data['data']['exchangeGbp'];
+                            let euro = exchange_data['data']['exchangeEur'];
+                            console.log(dollar);
+                            console.log(pound);
+                            console.log(euro);  
+
+                            dollar = exchange_data['data']['exchangeUsd'];
+        
+                            dollar = dollar.toFixed(2);
+                            pound = pound.toFixed(2);
+                            euro = euro.toFixed(2);
+                            $('#usd').html('$ ' + dollar);
+                            $('#gbp').html('£ ' + pound);
+                            $('#eur').html('€ ' + euro);
+                           
                        },
-                       // Exchange API error function
+                      // Exchange API error function
                        error: function (jqXHR, textStatus, errorThrown) {
                            // your error code
                            console.log('in error')
@@ -196,8 +178,19 @@ $(document).ready(function () {
   
                        }
                    });
-  
-               },
+                  },
+                   // Exchange API error function
+                   error: function (jqXHR, textStatus, errorThrown) {
+                    // your error code
+                    console.log('in error')
+                    console.log(errorThrown);
+                    console.log(textStatus)
+                    console.log(jqXHR)
+
+                }
+            });
+
+        },
                // CountryInfo API error function
                error: function (jqXHR, textStatus, errorThrown) {
                    // your error code
@@ -212,57 +205,48 @@ $(document).ready(function () {
            // console.log(errorThrown);
        }
    })
+
+   // Weather API call
+    $.ajax({
+        type: 'GET',
+        dataType: "json",
+        url: "./libs/php/weatherAPI.php?country=" + countryName.replace(/ /g, ''),
+        success: function (weather_data) {
+            console.log(weather_data);
+            $('#weather').html(weather_data['data']['temperature']);
+          },
+          // Weather API error function
+          error: function (jqXHR, textStatus, errorThrown) {
+              // your error code
+              console.log('in error')
+              console.log(errorThrown);
+              console.log(textStatus)
+              console.log(jqXHR)
+
+          }
+      });
+      // Wikipedia API call
+      $.ajax({
+          type: 'GET',
+          dataType: "json",
+          url: "./libs/php/wikipediaAPI.php?country=" + countryName.replace(/ /g, ''),
+          success: function (wiki_data) {
+            console.log(wiki_data);
+            $('#wikiUrl').html('<a href=https://' + (wiki_data["data"]["wikipediaURL"]) + '" target="_blank">Wikipedia Page</a>');
+            $('#wiki').html(wiki_data['data']['wikipedia']);
+          },
+          // Wikipedia API error function
+          error: function (jqXHR, textStatus, errorThrown) {
+              // your error code
+              console.log('in error')
+              console.log(errorThrown);
+              console.log(textStatus)
+              console.log(jqXHR)
+
+          }
+      });
+      $('.info').modal('show');                        
  });
-
- 
-
- // Temp location for the modal trigger, ideally this should be moved to another function which will call the api's to get
- // the oountries info
- function CountryInfo(geo_data, country_data, exchange_data, weather_data, wiki_data) {
-   $('#currency').html(geo_data['currency']);
-   $('#calling_code').html('+' + geo_data['calling']);
-   $('#coord').html(geo_data['coord']['lat'] + ' ' + geo_data['coord']['lng']);
-   $('#continent').html(geo_data['continent']);
-   $('#country').html(geo_data['country']);
-   $('#countryName').html(geo_data['country']);
-  
-   // From countryInfoAPI
-   let flagCode = country_data['data']['countCode'];
-   flagCode = flagCode.toLowerCase();
-  
-   $('#capital').html(country_data['data']['capital']);
-   $('#population').html(country_data['data']['population']);
-   $('#currencyExchange').html('1 ' + country_data['data']['currencyCode'] + ' will exchange for:');
-   $('#flag').html('<img src=https://flagcdn.com/w40/' + flagCode + '.png srcset=https://flagcdn.com/w40/' + flagCode + '.png 2x width="40">');
-  
-   // From exchangeAPI
-   let dollar = exchange_data['data']['exchangeUsd'];
-   let pound = exchange_data['data']['exchangeGbp'];
-   let euro = exchange_data['data']['exchangeEur'];
-   dollar = dollar.toFixed(2);
-   pound = pound.toFixed(2);
-   euro = euro.toFixed(2);
-   $('#usd').html('$ ' + dollar);
-   $('#gbp').html('£ ' + pound);
-   $('#eur').html('€ ' + euro);
-  
-   // From weatherAPI
-   $('#weather').html(weather_data['data']['temperature']);
-  
-   // From wikipediaAPI
-   $('#wikiUrl').html('<a href=https://' + (wiki_data["data"]["wikipediaURL"]) + '" target="_blank">Wikipedia Page</a>');
-   $('#wiki').html(wiki_data['data']['wikipedia']);
-  
-   // Modal
-   $('.info').modal('show');
-  
- }
-
- function cities(country_data) {
-  console.log(country_data['data']['north']);
- }
-
- 
   
  // countryName will not always have a value so assigning a default value which can be overwritten
  function getLocation(lat, lng, countryName = 'Your home') {
@@ -371,4 +355,3 @@ $(document).ready(function () {
  $(window).on('load', function () {
    $('#loading').hide();
  })
- 
