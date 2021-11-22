@@ -2,15 +2,15 @@
 
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
-  $north = $_GET['north'];
-  $south = $_GET['south'];
-  $east = $_GET['east'];
-  $west = $_GET['west'];
+  	// $north = $_GET['north'];
+  	// $south = $_GET['south'];
+  	// $east = $_GET['east'];
+  	// $west = $_GET['west'];
 
 
 	$executionStartTime = microtime(true);
 
-	$url='http://api.geonames.org/citiesJSON?north=' . $north . '&south=' . $south . '&east=' . $east . '&west=' . $west . '&lang=en&username=lo84';
+	$url='http://api.geonames.org/citiesJSON?north=' . $_REQUEST['north'] . '&south=' . $_REQUEST['south'] . '&east=' . $_REQUEST['east'] . '&west=' . $_REQUEST['west'] . '&lang=en&username=lo84';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -23,12 +23,16 @@
 
 	$decode = json_decode($result,true);	
   
-  $output['status']['code'] = "200";
+  	$output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
-	$output['data']['lat'] = $decode['geonames'][0]['lat'];
-  $output['data']['lng'] = $decode['geonames'][0]['lng'];
-  $output['data']['capName'] = $decode['geonames'][0]['name'];
+  	$output['data'] = $decode['geonames'];
+
+	// $output['data']['lat'] = $decode['geonames']['lat'];
+  	// $output['data']['lng'] = $decode['geonames']['lng'];
+  	// $output['data']['capName'] = $decode['geonames']['name'];
+  	// $output['data']['population'] = $decode['geonames']['population'];
+ 
  
 	echo json_encode($output); 
 
