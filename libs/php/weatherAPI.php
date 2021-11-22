@@ -18,14 +18,17 @@
 	curl_close($ch);
 
 	$decode = json_decode($result,true);	
+  
+        $output['status']['code'] = "200";
+        $output['status']['name'] = "ok";
+        $output['status']['description'] = "success";
 
-	$output['status']['code'] = "200";
-	$output['status']['name'] = "ok";
-	$output['status']['description'] = "success";
-	$output['data']['temperature'] = $decode['main']['temp'];
-
-
-
-	echo json_encode($output); 
+	    if (array_key_exists("main", $decode)) {
+	      $output['data']['temperature'] = $decode['main']['temp']."°C" ;
+	    }
+	    else {
+	      $output['data']['temperature'] = "N/A";
+	    }
+		echo json_encode($output); 
 
 ?>
