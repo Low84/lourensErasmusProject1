@@ -23,9 +23,14 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['data']['capital'] = $decode['geonames'][0]['capital'];
-  $output['data']['population'] = $decode['geonames'][0]['population'];
-  $output['data']['currencyCode'] = $decode['geonames'][0]['currencyCode'];
-  $output['data']['countCode'] = $decode['geonames'][0]['countryCode'];
+        $output['data']['population'] = $decode['geonames'][0]['population'];
+        $output['data']['currencyCode'] = $decode['geonames'][0]['currencyCode'];
+        $output['data']['countCode'] = $decode['geonames'][0]['countryCode'];
+        $output['data']['north'] = $decode['geonames'][0]['north'];
+	$output['data']['south'] = $decode['geonames'][0]['south'];
+	$output['data']['east'] = $decode['geonames'][0]['east'];
+	$output['data']['west'] = $decode['geonames'][0]['west'];
+
 
   
 	echo json_encode($output); 
