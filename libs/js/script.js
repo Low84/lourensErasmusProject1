@@ -1,8 +1,5 @@
 let myMap;
-let north;
-let south;
-let east;
-let west;
+
 $(document).ready(function () {
  
   myMap = L.map('mapid').setView([51.505, -0.09], 5.5);
@@ -17,6 +14,8 @@ $(document).ready(function () {
        tileSize: 512,
        zoomOffset: -1
    }).addTo(myMap);
+
+   
 
    $("#sel_country").empty();
    $.ajax({
@@ -90,10 +89,10 @@ $(document).ready(function () {
                success: function (country_data) {
                    country_data = $.parseJSON(country_data)
                    currencyCode = country_data['data']['currencyCode'];
-                   north = country_data['data']['north'];
-                   south = country_data['data']['south'];
-                   east = country_data['data']['east'];
-                   west = country_data['data']['west'];
+                   const north = country_data['data']['north'];
+                   const south = country_data['data']['south'];
+                   const east = country_data['data']['east'];
+                   const west = country_data['data']['west'];
 
                    console.log(currencyCode);
                    console.log(north);
@@ -129,11 +128,27 @@ $(document).ready(function () {
                                            // City API call
                                             $.ajax({
                                               type: 'GET',
-                                              url: "./libs/php/citiesAPI.php?north=" + north + "?south=" + south + "?east=" + east + "?west=" + west,
-                                              success: function (result) {
-                                                console.log(JSON.stringify(result));
-                                                  
+                                              url: "./libs/php/citiesAPI.php",
+                                              data: {
+                                                north: north,
+                                                south: south,
+                                                east: east,
+                                                west: west 
+                                              },
+                                              success: function (city_data) {
+                                                console.log(JSON.stringify(city_data))
+                                                console.log(city_data['data'][0]['lat']);
 
+
+                                                if (city_data.status.name == "ok") {
+
+                                                  console.log(city_data['data'][0]['lat']);
+
+                                                  // $('#langitude').html((city_data['data'][0]['lat']);
+                                                  // $('#longitude').html((city_data['data'][0]['lng']);
+                                                  // $('#city').html((city_data['data'][0]['city']);
+                                                  // $('#population').html((city_data['data'][0]['population']);
+                                                }
                                                   
                                               },
                                               // City API error function
