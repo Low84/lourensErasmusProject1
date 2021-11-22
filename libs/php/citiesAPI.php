@@ -2,11 +2,6 @@
 
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
-  	// $north = $_GET['north'];
-  	// $south = $_GET['south'];
-  	// $east = $_GET['east'];
-  	// $west = $_GET['west'];
-
 
 	$executionStartTime = microtime(true);
 
@@ -23,16 +18,10 @@
 
 	$decode = json_decode($result,true);	
   
-  	$output['status']['code'] = "200";
+  $output['status']['code'] = "200";
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
-  	$output['data'] = $decode['geonames'];
-
-	// $output['data']['lat'] = $decode['geonames']['lat'];
-  	// $output['data']['lng'] = $decode['geonames']['lng'];
-  	// $output['data']['capName'] = $decode['geonames']['name'];
-  	// $output['data']['population'] = $decode['geonames']['population'];
- 
+  $output['data'] = $decode['geonames'];
  
 	echo json_encode($output); 
 
