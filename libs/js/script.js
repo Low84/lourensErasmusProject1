@@ -62,27 +62,29 @@ $(document).ready(function () {
      });
    };
   var markers = L.markerClusterGroup();
-  const cityPopulationMarker = (city_data) => {
-      var markerArr = [];
+  function cityPopulationMarker(city_data){
+    var markerArr = [];
 
-      for (var i = 0; i < city_data.length; i++) {
-        var lat = city_data[i]['lat'];
-        console.log(lat);
-        var lng = city_data[i]['lng'];
-        console.log(lng);
-        var city = city_data[i]['name'];
-        console.log(city);
-        var population = city_data[i]['population'];
-        console.log(population);
-        var marker = L.marker([lat, lng]);
-        var popup = 
-            '<div id="markerPopup"><b>City: </b>' + city + '<hr/ >' +
-              '<b>Population: </b>' + population + '</div>'
-          marker.bindPopup(popup);
-          markerArr.push(marker);
-      }
-      markers.addLayers(markerArr);
-  }
+    for (var i = 0; i < city_data.length; i++) {
+      var lat = city_data[i]['lat'];
+      console.log(lat);
+      var lng = city_data[i]['lng'];
+      console.log(lng);
+      var city = city_data[i]['name'];
+      console.log(city);
+      var population = city_data[i]['population'];
+      console.log(population);
+      var marker = L.marker([lat, lng]);
+      var popup = 
+          '<div id="markerPopup"><span class="markClustPopup">City: </span>' + city + '<hr/ >' +
+            '<span class="markClustPopup">Population: </span>' + population + '</div>'
+        marker.bindPopup(popup);
+        markerArr.push(marker);
+    }
+    //markers.addLayers(markerArr);
+    return markerArr;
+}
+
 
   // What happens after selecting a country from the list 
  $('#sel_country').change(function () {
@@ -151,12 +153,15 @@ $(document).ready(function () {
   
                         if (city_data.status.name == "ok") {
   
-                          console.log(city_data['data'][0]['lat']);
-                          console.log(city_data['data'][0]['lng']);
-                          console.log(city_data['data'][0]['name']);
-                          console.log(city_data['data'][0]['population']);
+                          // console.log(city_data['data'][0]['lat']);
+                          // console.log(city_data['data'][0]['lng']);
+                          // console.log(city_data['data'][0]['name']);
+                          // console.log(city_data['data'][0]['population']);
+                          var markers = L.markerClusterGroup();
+                          markers.addLayers(cityPopulationMarker(city_data["data"]));
+                          markers.addTo(myMap);
+
                         }
-                        cityPopulationMarker(city_data);
 
                     // console.log(currencyCode);
                    // Exchange API call
@@ -172,13 +177,23 @@ $(document).ready(function () {
                             let dollar = exchange_data['data']['exchangeUsd'];
                             let pound = exchange_data['data']['exchangeGbp'];
                             let euro = exchange_data['data']['exchangeEur'];
-                            // console.log(dollar);
-                            // console.log(pound);
-                            // console.log(euro);  
-        
-                            dollar = dollar.toFixed(2);
-                            pound = pound.toFixed(2);
-                            euro = euro.toFixed(2);
+
+                            if (dollar < 0.01) {
+                              dollar = dollar;
+                            } else {
+                              dollar = dollar.toFixed(2);
+                            }
+                            if (pound < 0.01) {
+                              pound = pound;
+                            } else {
+                              pound = pound.toFixed(2);
+                            }
+                            if (euro < 0.01) {
+                              euro = euro;
+                            } else {
+                              euro = euro.toFixed(2);
+                            }
+
                             $('#usd').html('$ ' + dollar);
                             $('#gbp').html('£ ' + pound);
                             $('#eur').html('€ ' + euro);
@@ -265,84 +280,14 @@ $(document).ready(function () {
                              
  });
   
-
-
  // countryName will not always have a value so assigning a default value which can be overwritten
  function getLocation(lat, lng, countryName = 'Your home') {
    //var container = L.DomUtil.get('mapid'); if (container != null) { container._leaflet_id = null; }
   
    L.marker([lat, lng]).addTo(myMap)
     .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
-
-  // var markers = L.markerClusterGroup();
-  // const cityPopulationMarker = (city_data) => {
-  //     for (var i = 0; i < city_data[data].length; i++) {
-  //       var a = city_data[data][i];
-  //       console.log(a);
-  //       var city = a[3];
-  //       console.log(city);
-  //       var population = a[10];
-  //       console.log(population);
-  //       var marker = L.marker(new L.Latlng(a[8], a[0]), { city: city, population: population });
-  //       var popup = 
-  //           '<div id="markerPopup">' + city + '<hr/ >' +
-  //             '<b>Population: </b>' + population + '</div>'
-  //         marker.bindPopup(popup);
-  //         markers.addLayer(L.marker())
-
-  //     }
-  // }
-    
-       // clustermarkers code
-  
-       // var myURL = jQuery('script[src$="script.js"]')
-       //   .attr('src')
-       //   .replace('script.js', '')
-  
-       // var myIcon = L.icon({
-       //   iconUrl: myURL + '../images/pin24.png',
-       //   iconRetinaUrl: myURL + '../images/pin48.png',
-       //   iconSize: [29, 24],
-       //   iconAnchor: [9, 21],
-       //   popupAnchor: [0, -14],
-       // })
-  
-       // var markerClusters = L.markerClusterGroup()
-  
-       // for (var i = 0; i < markers.length; ++i) {
-       //   var popup =
-       //     '<div id="markerPopup"><b>' + markers[i].name + '</b>' +
-       //     '<hr/>' +
-       //     markers[i].city +
-       //     '<br/><b>IATA/FAA:</b> ' +
-       //     markers[i].iata_faa +
-       //     '<br/><b>ICAO:</b> ' +
-       //     markers[i].icao +
-       //     '<br/><b>Altitude:</b> ' +
-       //     Math.round(markers[i].alt * 0.3048) +
-       //     ' m' +
-       //     '<br/><b>Timezone:</b> ' +
-       //     markers[i].tz + '</div>'
-  
-       //   var m = L.marker([markers[i].lat, markers[i].lng], {
-       //     icon: myIcon,
-       //   }).bindPopup(popup)
-  
-       //   markerClusters.addLayer(m)
-       // }
-  
-       // myMap.addLayer(markerClusters)
-  
-       // end of clustermarkers code
        
-   // Adds a circle to clicked area
-   // L.circle([lat, lng], 500, {
-   //     color: 'red',
-   //     fillColor: '#f03',
-   //     fillOpacity: 0.5
-   // }).addTo(myMap);
-  
-   // Adds a popup with clicked coordinates
+  // Adds a popup with clicked coordinates
    // var popup = L.popup();
   
    // function onMapClick(e) {
