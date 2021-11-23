@@ -76,7 +76,7 @@ $(document).ready(function () {
         console.log(population);
         var marker = L.marker([lat, lng]);
         var popup = 
-            '<div id="markerPopup">' + city + '<hr/ >' +
+            '<div id="markerPopup"><b>City: </b>' + city + '<hr/ >' +
               '<b>Population: </b>' + population + '</div>'
           marker.bindPopup(popup);
           markerArr.push(marker);
@@ -274,24 +274,24 @@ $(document).ready(function () {
    L.marker([lat, lng]).addTo(myMap)
     .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
 
-  var markers = L.markerClusterGroup();
-  const cityPopulationMarker = (city_data) => {
-      for (var i = 0; i < city_data[data].length; i++) {
-        var a = city_data[data][i];
-        console.log(a);
-        var city = a[3];
-        console.log(city);
-        var population = a[10];
-        console.log(population);
-        var marker = L.marker(new L.Latlng(a[8], a[0]), { city: city, population: population });
-        var popup = 
-            '<div id="markerPopup">' + city + '<hr/ >' +
-              '<b>Population: </b>' + population + '</div>'
-          marker.bindPopup(popup);
-          markers.addLayer(L.marker())
+  // var markers = L.markerClusterGroup();
+  // const cityPopulationMarker = (city_data) => {
+  //     for (var i = 0; i < city_data[data].length; i++) {
+  //       var a = city_data[data][i];
+  //       console.log(a);
+  //       var city = a[3];
+  //       console.log(city);
+  //       var population = a[10];
+  //       console.log(population);
+  //       var marker = L.marker(new L.Latlng(a[8], a[0]), { city: city, population: population });
+  //       var popup = 
+  //           '<div id="markerPopup">' + city + '<hr/ >' +
+  //             '<b>Population: </b>' + population + '</div>'
+  //         marker.bindPopup(popup);
+  //         markers.addLayer(L.marker())
 
-      }
-  }
+  //     }
+  // }
     
        // clustermarkers code
   
