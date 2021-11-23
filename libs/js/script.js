@@ -64,6 +64,16 @@ $(document).ready(function () {
 
   //  Function for cluster markers
   var markers = L.markerClusterGroup();
+//   var pinIcon = L.icon({
+//     iconUrl: './libs/images/location.png',
+//     shadowUrl: './libs/images/marker-shadow.png',
+
+//     iconSize:     [64, 64], // size of the icon
+//     shadowSize:   [64, 64], // size of the shadow
+//     iconAnchor:   [0, 32], // point of the icon which will correspond to marker's location
+//     shadowAnchor: [4, 38],  // the same for the shadow
+//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+// });
   function cityPopulationMarker(city_data){
     var markerArr = [];
 
@@ -219,7 +229,6 @@ $('#sel_country').change(function () {
 
               }
           });
-
       },
               // CountryInfo API error function
               error: function (jqXHR, textStatus, errorThrown) {
@@ -275,9 +284,17 @@ $('#sel_country').change(function () {
 
         }
     });
+    // L.easyButton('<span class="telrec">&telrec;</span>', function () {
+    //   $('.info').modal('show');;
+    //   }).addTo(myMap)
+    if ($(".telrec")[0]) {
+    $('.info').modal('show');
+  } else {
     L.easyButton('<span class="telrec">&telrec;</span>', function () {
-      $('.info').modal('show');;
-      }).addTo(myMap) 
+      $('.info').modal('show');
+    }).addTo(myMap)
+    $('.info').modal('show');
+  } 
                             
 });
 
