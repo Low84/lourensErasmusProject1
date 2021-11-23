@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="author" content="Lourens Erasmus">
     <meta name="description" content="Geolocation Website">
-    <meta name="keywords" content="leaflet, maps, info, geolocation">
+    <meta name="keywords" content="leaflet, maps, info, geolocation, ">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
@@ -25,6 +25,12 @@
     <!-- Clustering js -->
     <script src="./vendors/js/leaflet.markercluster.js"></script>
 
+    <!-- Easybutton css -->
+    <link rel="stylesheet" type="text/css" href="./vendors/css/easy-button.css" >
+
+    <!-- Easybutton JavaScript -->
+    <script src="./vendors/js/easy-button.js"></script>
+
     <!-- Stylesheet -->
     <link rel="stylesheet" type="text/css" href="./libs/css/styles.css" />
 
@@ -33,15 +39,19 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Dosis&display=swap" rel="stylesheet">
 
-    <title>Gazetteer</title>
+    <!-- Favicon -->
     <link href="./libs/images/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+
+    <title>Gazetteer</title>
 
 </head>
 
 <body>
+    <!-- Preloader -->
     <div id="loading">
       <img id="loading-image" src="./libs/images/preloader.gif" alt="Loading..." />
     </div>
+    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navBar">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Gazetteer</a>
@@ -62,10 +72,7 @@
                         </select>
                     </li>
                 </ul>
-            </div>
-            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Launch static backdrop modal
-            </button> -->
+          </div>
     </nav>
     <div id="mapid">
     </div>
