@@ -48,6 +48,11 @@ tbody {
   scrollbar-width: none;  /* Firefox */
 }
 
+
+span.markClustPopup {
+  font-weight: bolder;
+}
+
 a {
   color: rgb(255, 255, 255);
 }
@@ -160,3 +165,4 @@ option:hover {
 #loading-image {
   z-index: 100;
 }
+
