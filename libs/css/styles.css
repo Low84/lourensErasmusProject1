@@ -166,3 +166,7 @@ option:hover {
   z-index: 100;
 }
 
+.telrec {
+  font-weight: bolder;
+  font-size: 1.2rem;
+}
