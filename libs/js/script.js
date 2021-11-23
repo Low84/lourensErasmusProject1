@@ -1,5 +1,5 @@
 let myMap;
- 
+// Loading the map at start up 
 $(document).ready(function () {
  
   myMap = L.map('mapid').setView([51.505, -0.09], 5.5);
@@ -14,9 +14,8 @@ $(document).ready(function () {
        tileSize: 512,
        zoomOffset: -1
    }).addTo(myMap);
- 
-   
- 
+  
+  //  Selecting a country and creating a border around selected country
    $("#sel_country").empty();
    $.ajax({
        type: "GET",
@@ -29,9 +28,10 @@ $(document).ready(function () {
        }
    });  
  });
+
  let c=0;
  function applyCountryBorder(code) {
-   console.log(code);
+  //  console.log(code);
    jQuery
      .ajax({
        type: "GET",
@@ -42,7 +42,7 @@ $(document).ready(function () {
        }
      })
      .then(function(data) {
-       console.log(data);
+      //  console.log(data);
        
        var border = L.geoJSON(data, {
          color: "#04446b",
@@ -54,29 +54,49 @@ $(document).ready(function () {
        border.addTo(myMap);
   
        myMap.fitBounds(border.getBounds());
-       console.log(c);
+      //  console.log(c);
        c++;
      
      }).catch(function(err){
        console.log(err);
      });
    };
-  
+  var markers = L.markerClusterGroup();
+  const cityPopulationMarker = (city_data) => {
+      var markerArr = [];
+
+      for (var i = 0; i < city_data.length; i++) {
+        var lat = city_data[i]['lat'];
+        console.log(lat);
+        var lng = city_data[i]['lng'];
+        console.log(lng);
+        var city = city_data[i]['name'];
+        console.log(city);
+        var population = city_data[i]['population'];
+        console.log(population);
+        var marker = L.marker([lat, lng]);
+        var popup = 
+            '<div id="markerPopup">' + city + '<hr/ >' +
+              '<b>Population: </b>' + population + '</div>'
+          marker.bindPopup(popup);
+          markerArr.push(marker);
+      }
+      markers.addLayers(markerArr);
+  }
+
+  // What happens after selecting a country from the list 
  $('#sel_country').change(function () {
    let countryName = $('#sel_country option:selected').text();
    let countryCode = $('#sel_country').val();
-   // Playing with countryborder function
    
-   applyCountryBorder(countryCode);
-     // end of function
-   
+   applyCountryBorder(countryCode);   
   
    $.ajax({
        type: "GET",
        dataType: "json",
        url: "./libs/php/latAndLongAPI.php?country=" + countryName.replace(/ /g, ''),
        success: function (geo_data) {
-           console.log(geo_data);
+          //  console.log(geo_data);
            lat = geo_data['data']['lat'];
            lng = geo_data['data']['lng']
            getLocation(lat, lng, countryName);
@@ -94,19 +114,18 @@ $(document).ready(function () {
                dataType: "json",
                url: "./libs/php/getCountryRect.php?country=" + countryCode,
                success: function (country_data) {
-                 console.log(country_data);
-                   //country_data = $.parseJSON(country_data)
+                //  console.log(country_data);
                    const currencyCode = country_data['data']['currencyCode'];
                    const north = country_data['data']['north'];
                    const south = country_data['data']['south'];
                    const east = country_data['data']['east'];
                    const west = country_data['data']['west'];
  
-                   console.log(currencyCode);
-                   console.log(north);
-                   console.log(south);
-                   console.log(east);
-                   console.log(west);
+                  //  console.log(currencyCode);
+                  //  console.log(north);
+                  //  console.log(south);
+                  //  console.log(east);
+                  //  console.log(west);
 
                    let flagCode = country_data['data']['countCode'];
                    flagCode = flagCode.toLowerCase();
@@ -136,11 +155,10 @@ $(document).ready(function () {
                           console.log(city_data['data'][0]['lng']);
                           console.log(city_data['data'][0]['name']);
                           console.log(city_data['data'][0]['population']);
-
                         }
-                          
-                      
-                    console.log(currencyCode);
+                        cityPopulationMarker(city_data);
+
+                    // console.log(currencyCode);
                    // Exchange API call
                     $.ajax({
                         type: 'GET',
@@ -150,15 +168,13 @@ $(document).ready(function () {
                           currencyCode: currencyCode
                         },
                         success: function (exchange_data) {
-                            console.log(exchange_data);
+                            // console.log(exchange_data);
                             let dollar = exchange_data['data']['exchangeUsd'];
                             let pound = exchange_data['data']['exchangeGbp'];
                             let euro = exchange_data['data']['exchangeEur'];
-                            console.log(dollar);
-                            console.log(pound);
-                            console.log(euro);  
-
-                            dollar = exchange_data['data']['exchangeUsd'];
+                            // console.log(dollar);
+                            // console.log(pound);
+                            // console.log(euro);  
         
                             dollar = dollar.toFixed(2);
                             pound = pound.toFixed(2);
@@ -212,7 +228,7 @@ $(document).ready(function () {
         dataType: "json",
         url: "./libs/php/weatherAPI.php?country=" + countryName.replace(/ /g, ''),
         success: function (weather_data) {
-            console.log(weather_data);
+            // console.log(weather_data);
             $('#weather').html(weather_data['data']['temperature']);
           },
           // Weather API error function
@@ -231,7 +247,7 @@ $(document).ready(function () {
           dataType: "json",
           url: "./libs/php/wikipediaAPI.php?country=" + countryName.replace(/ /g, ''),
           success: function (wiki_data) {
-            console.log(wiki_data);
+            // console.log(wiki_data);
             $('#wikiUrl').html('<a href=https://' + (wiki_data["data"]["wikipediaURL"]) + '" target="_blank">Wikipedia Page</a>');
             $('#wiki').html(wiki_data['data']['wikipedia']);
           },
@@ -245,17 +261,38 @@ $(document).ready(function () {
 
           }
       });
-      $('.info').modal('show');                        
+      $('.info').modal('show'); 
+                             
  });
   
+
+
  // countryName will not always have a value so assigning a default value which can be overwritten
  function getLocation(lat, lng, countryName = 'Your home') {
    //var container = L.DomUtil.get('mapid'); if (container != null) { container._leaflet_id = null; }
   
    L.marker([lat, lng]).addTo(myMap)
     .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
+
+  var markers = L.markerClusterGroup();
+  const cityPopulationMarker = (city_data) => {
+      for (var i = 0; i < city_data[data].length; i++) {
+        var a = city_data[data][i];
+        console.log(a);
+        var city = a[3];
+        console.log(city);
+        var population = a[10];
+        console.log(population);
+        var marker = L.marker(new L.Latlng(a[8], a[0]), { city: city, population: population });
+        var popup = 
+            '<div id="markerPopup">' + city + '<hr/ >' +
+              '<b>Population: </b>' + population + '</div>'
+          marker.bindPopup(popup);
+          markers.addLayer(L.marker())
+
+      }
+  }
     
-   
        // clustermarkers code
   
        // var myURL = jQuery('script[src$="script.js"]')
