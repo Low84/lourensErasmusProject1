@@ -1,4 +1,6 @@
 let myMap;
+let border;
+let markers;
 // Loading the map at start up 
 $(document).ready(function () {
  
@@ -9,7 +11,7 @@ $(document).ready(function () {
    {
        maxZoom: 18,
        attribution: 'Map data &copy; <a href=https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors, ' +
-           'Imagery © <a href=https://www.mapbox.com/>Mapbox</a>',
+           'Imagery © <a href=https://www.mapbox.com/>Mapbox</a>' + '<div>Icons made by <a href="https://www.flaticon.com/authors/fjstudio" title="fjstudio">fjstudio</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>' ,
        id: 'mapbox/streets-v11',
        tileSize: 512,
        zoomOffset: -1
@@ -29,9 +31,35 @@ $(document).ready(function () {
    });  
  });
 
+//  Icons for map
+ const countryIcon = L.icon({
+  iconUrl: './libs/images/global.png',
+  shadowUrl: './libs/images/markers_shadow.png',
+
+  iconSize:     [64, 64], // size of the icon
+  shadowSize:   [64, 64], // size of the shadow
+  iconAnchor:   [22, 50], // point of the icon which will correspond to marker's location
+  shadowAnchor: [25, 52],  // the same for the shadow
+  popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+})
+
+const cityIcon = L.icon({
+  iconUrl: './libs/images/location.png',
+  shadowUrl: './libs/images/markers_shadow.png',
+
+  iconSize:     [64, 64], // size of the icon
+  shadowSize:   [64, 64], // size of the shadow
+  iconAnchor:   [32, 70], // point of the icon which will correspond to marker's location
+  shadowAnchor: [34, 72],  // the same for the shadow
+  popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+})
+
  let c=0;
  function applyCountryBorder(code) {
   //  console.log(code);
+  if(border) {
+    border.clearLayers();
+  }
    jQuery
      .ajax({
        type: "GET",
@@ -43,8 +71,8 @@ $(document).ready(function () {
      })
      .then(function(data) {
       //  console.log(data);
-       
-       var border = L.geoJSON(data, {
+
+       border = L.geoJSON(data, {
          color: "#04446b",
          weight: 4,
          opacity: 1,
@@ -63,8 +91,9 @@ $(document).ready(function () {
    };
 
   //  Function for cluster markers
-  var markers = L.markerClusterGroup();
-``
+  // markers = L.markerClusterGroup();
+  markers = L.markerClusterGroup();                  
+
   function cityPopulationMarker(city_data){
     var markerArr = [];
 
@@ -77,7 +106,7 @@ $(document).ready(function () {
       // console.log(city);
       var population = city_data[i]['population'];
       // console.log(population);
-      var marker = L.marker([lat, lng]);
+      var marker = L.marker([lat, lng], {icon: cityIcon});
       var popup = 
           '<div id="markerPopup"><span class="markClustPopup">City: </span>' + city + '<hr/ >' +
             '<span class="markClustPopup">Population: </span>' + population + '</div>'
@@ -159,7 +188,11 @@ $('#sel_country').change(function () {
                         // console.log(city_data['data'][0]['lng']);
                         // console.log(city_data['data'][0]['name']);
                         // console.log(city_data['data'][0]['population']);
-                        var markers = L.markerClusterGroup();
+                        if(markers){
+                          markers.clearLayers();
+                        }
+                        
+                        markers = L.markerClusterGroup();                  
                         markers.addLayers(cityPopulationMarker(city_data["data"]));
                         markers.addTo(myMap);
 
@@ -290,8 +323,8 @@ $('#sel_country').change(function () {
 
 // countryName will not always have a value so assigning a default value which can be overwritten
 function getLocation(lat, lng, countryName = 'Your home') {
-
-  L.marker([lat, lng]).addTo(myMap)
+  
+  L.marker([lat, lng], {icon: countryIcon}).addTo(myMap)
   .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
   
  }
