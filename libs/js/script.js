@@ -64,16 +64,7 @@ $(document).ready(function () {
 
   //  Function for cluster markers
   var markers = L.markerClusterGroup();
-//   var pinIcon = L.icon({
-//     iconUrl: './libs/images/location.png',
-//     shadowUrl: './libs/images/marker-shadow.png',
-
-//     iconSize:     [64, 64], // size of the icon
-//     shadowSize:   [64, 64], // size of the shadow
-//     iconAnchor:   [0, 32], // point of the icon which will correspond to marker's location
-//     shadowAnchor: [4, 38],  // the same for the shadow
-//     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-// });
+``
   function cityPopulationMarker(city_data){
     var markerArr = [];
 
@@ -110,7 +101,9 @@ $('#sel_country').change(function () {
       success: function (geo_data) {
         //  console.log(geo_data);
           lat = geo_data['data']['lat'];
-          lng = geo_data['data']['lng']
+          lng = geo_data['data']['lng'];
+          
+          // Function that binds a popup on the map to show country name
           getLocation(lat, lng, countryName);
 
           $('#currency').html(geo_data['currency']);
@@ -319,7 +312,7 @@ function getLocation(lat, lng, countryName = 'Your home') {
    console.log(position)
    var lat = position.coords.latitude;
    var lng = position.coords.longitude;
-   getLocation(lat, lng)
+   getLocation(lat, lng);
  }
   
  function showError(error) {
