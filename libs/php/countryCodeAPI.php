@@ -1,6 +1,5 @@
 <?php
   // 'http://api.geonames.org/countryCode?lat=47.03&lng=10.2&username=lo84'
-  'http://api.geonames.org/countryCode?lat=' . $_REQUEST['lat'] . '&lng=' . $_REQUEST['lng'] . '&username=lo84';
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
 
