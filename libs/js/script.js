@@ -1,5 +1,4 @@
 let myMap;
-let homeCountryCode;
 // Loading the map at start up 
 $(document).ready(function () {
  
@@ -71,13 +70,13 @@ $(document).ready(function () {
 
     for (var i = 0; i < city_data.length; i++) {
       var lat = city_data[i]['lat'];
-      console.log(lat);
+      // console.log(lat);
       var lng = city_data[i]['lng'];
-      console.log(lng);
+      // console.log(lng);
       var city = city_data[i]['name'];
-      console.log(city);
+      // console.log(city);
       var population = city_data[i]['population'];
-      console.log(population);
+      // console.log(population);
       var marker = L.marker([lat, lng]);
       var popup = 
           '<div id="markerPopup"><span class="markClustPopup">City: </span>' + city + '<hr/ >' +
@@ -152,7 +151,7 @@ $('#sel_country').change(function () {
                     west: west 
                   },
                     success: function (city_data) {
-                      console.log(city_data);
+                      // console.log(city_data);
 
                       if (city_data.status.name == "ok") {
 
@@ -166,8 +165,7 @@ $('#sel_country').change(function () {
 
                       }
 
-                  // console.log(currencyCode);
-                  // Exchange API call
+                      // Exchange API call
                   $.ajax({
                       type: 'GET',
                       dataType: "json",
@@ -265,7 +263,7 @@ $('#sel_country').change(function () {
         url: "./libs/php/wikipediaAPI.php?country=" + countryName.replace(/ /g, ''),
         success: function (wiki_data) {
           // console.log(wiki_data);
-          $('#wikiUrl').html('<a href=https://' + (wiki_data["data"]["wikipediaURL"]) + '" target="_blank">Wikipedia Page</a>');
+          $('#wikiUrl').html('<a href=https://' + (wiki_data["data"]["wikipediaURL"]) + ' target="_blank">Wikipedia Page</a>');
           $('#wiki').html(wiki_data['data']['wikipedia']);
         },
         // Wikipedia API error function
@@ -317,7 +315,7 @@ function getLocation(lat, lng, countryName = 'Your home') {
       lng: lng
     },
       success: function(result) {
-        console.log(result);
+        // console.log(result);
         $("#sel_country").val(result["data"]["countryCode"].trim().toUpperCase()).change();
       },
       error: function(jqXHR){
@@ -328,7 +326,7 @@ function getLocation(lat, lng, countryName = 'Your home') {
 
   
  function locationSuccess(position) {
-   console.log(position)
+  //  console.log(position)
    var lat = position.coords.latitude;
    var lng = position.coords.longitude;
    getLocation(lat, lng);
