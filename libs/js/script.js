@@ -278,9 +278,7 @@ $('#sel_country').change(function () {
 
         }
     });
-    // L.easyButton('<span class="telrec">&telrec;</span>', function () {
-    //   $('.info').modal('show');;
-    //   }).addTo(myMap)
+
     if ($(".telrec")[0]) {
     $('.info').modal('show');
   } else {
@@ -320,7 +318,7 @@ function getLocation(lat, lng, countryName = 'Your home') {
     },
       success: function(result) {
         console.log(result);
-        $("#sel_country").val(result["data"]["countryCode"].toUpperCase()).change();
+        $("#sel_country").val(result["data"]["countryCode"].trim().toUpperCase()).change();
       },
       error: function(jqXHR){
         console.log(jqXHR);
