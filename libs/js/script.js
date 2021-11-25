@@ -1,4 +1,5 @@
 let myMap;
+let homeCountryCode;
 // Loading the map at start up 
 $(document).ready(function () {
  
@@ -307,12 +308,33 @@ function getLocation(lat, lng, countryName = 'Your home') {
        alert('Your browser does not support location data retrieval or the user declined access.');
    }
  });
+
+ function triggerDropdownFromLocation(lat, lng){
+    $.ajax({
+    url: "libs/php/countryCodeAPI.php",
+    type: 'GET',
+    dataType: 'json',
+    data: {
+      lat: lat,
+      lng: lng
+    },
+      success: function(result) {
+        console.log(result);
+        $("#sel_country").val(result["data"]["countryCode"].toUpperCase()).change();
+      },
+      error: function(jqXHR){
+        console.log(jqXHR);
+      }
+    })
+ };
+
   
  function locationSuccess(position) {
    console.log(position)
    var lat = position.coords.latitude;
    var lng = position.coords.longitude;
    getLocation(lat, lng);
+   triggerDropdownFromLocation(lat, lng);
  }
   
  function showError(error) {
