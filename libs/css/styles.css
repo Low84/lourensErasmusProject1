@@ -73,6 +73,10 @@ option:hover {
   font-style: italic;
 }
 
+#excRateList {
+  list-style: none;
+}
+
 .container {
   height: 100vh;
 }
@@ -128,13 +132,8 @@ option:hover {
 }
 
 .modal-footer {
-  /* background-color: rgba(185, 91, 3, 0.5); */
   background-color: #81b8da;
 }
-
-/* .modal-header {
-  display: inline-block;
-} */
 
 .modal-dialog{
   overflow-y: initial !important
