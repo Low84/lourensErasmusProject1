@@ -1,6 +1,8 @@
 let myMap;
 let border;
 let markers;
+let countryPopup;
+let cityWeather;
 // Loading the map at start up 
 $(document).ready(function () {
  
@@ -11,7 +13,7 @@ $(document).ready(function () {
    {
        maxZoom: 18,
        attribution: 'Map data &copy; <a href=https://www.openstreetmap.org/copyright>OpenStreetMap</a> contributors, ' +
-           'Imagery © <a href=https://www.mapbox.com/>Mapbox</a>' + '<div>Icons made by <a href="https://www.flaticon.com/authors/fjstudio" title="fjstudio">fjstudio</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>' ,
+           'Imagery © <a href=https://www.mapbox.com/>Mapbox</a></div>' ,
        id: 'mapbox/streets-v11',
        tileSize: 512,
        zoomOffset: -1
@@ -49,14 +51,14 @@ const cityIcon = L.icon({
 
   iconSize:     [64, 64], // size of the icon
   shadowSize:   [64, 64], // size of the shadow
-  iconAnchor:   [32, 70], // point of the icon which will correspond to marker's location
+  iconAnchor:   [32, 70], // point of the icon which will correspond to marker's location 
   shadowAnchor: [34, 72],  // the same for the shadow
-  popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+  popupAnchor:  [100, 150] // point from which the popup should open relative to the iconAnchor
 })
 
  let c=0;
  function applyCountryBorder(code) {
-  //  console.log(code);
+   console.log(code);
   if(border) {
     border.clearLayers();
   }
@@ -70,7 +72,7 @@ const cityIcon = L.icon({
        }
      })
      .then(function(data) {
-      //  console.log(data);
+       console.log(data);
 
        border = L.geoJSON(data, {
          color: "#04446b",
@@ -82,7 +84,7 @@ const cityIcon = L.icon({
        border.addTo(myMap);
   
        myMap.fitBounds(border.getBounds());
-      //  console.log(c);
+       console.log(c);
        c++;
      
      }).catch(function(err){
@@ -106,10 +108,35 @@ const cityIcon = L.icon({
       // console.log(city);
       var population = city_data[i]['population'];
       // console.log(population);
+      $.ajax({
+        url: "./libs/php/cityWeatherAPI.php",
+        type: 'GET',
+        dataType: 'json',
+        data: {
+          lat: lat,
+          lng: lng
+        },
+        success: function(result) {
+  
+          console.log(JSON.stringify(result));
+  
+          if (result.status.name == "ok") {
+            console.log(result['data']['temperature'])
+            cityWeather = result['data']['temperature'];
+  
+          }
+        
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          // your error code
+        }
+      }); 
+
       var marker = L.marker([lat, lng], {icon: cityIcon});
       var popup = 
           '<div id="markerPopup"><span class="markClustPopup">City: </span>' + city + '<hr/ >' +
-            '<span class="markClustPopup">Population: </span>' + population + '</div>'
+            '<span class="markClustPopup">Population: </span>' + population + 
+            '</br><span class="markClustPopup">Current Temperature: </span>' + cityWeather + '</div>'
         marker.bindPopup(popup);
         markerArr.push(marker);
     }
@@ -120,7 +147,8 @@ const cityIcon = L.icon({
 $('#sel_country').change(function () {
   let countryName = $('#sel_country option:selected').text();
   let countryCode = $('#sel_country').val();
-  
+  console.log(countryName);
+  console.log(countryCode);
   applyCountryBorder(countryCode);   
 
   $.ajax({
@@ -133,6 +161,7 @@ $('#sel_country').change(function () {
           lng = geo_data['data']['lng'];
           
           // Function that binds a popup on the map to show country name
+         
           getLocation(lat, lng, countryName);
 
           $('#currency').html(geo_data['currency']);
@@ -148,18 +177,18 @@ $('#sel_country').change(function () {
               dataType: "json",
               url: "./libs/php/getCountryRect.php?country=" + countryCode,
               success: function (country_data) {
-              //  console.log(country_data);
+               console.log(country_data);
                   const currencyCode = country_data['data']['currencyCode'];
                   const north = country_data['data']['north'];
                   const south = country_data['data']['south'];
                   const east = country_data['data']['east'];
                   const west = country_data['data']['west'];
 
-                //  console.log(currencyCode);
-                //  console.log(north);
-                //  console.log(south);
-                //  console.log(east);
-                //  console.log(west);
+                 console.log(currencyCode);
+                 console.log(north);
+                 console.log(south);
+                 console.log(east);
+                 console.log(west);
 
                   let flagCode = country_data['data']['countCode'];
                   flagCode = flagCode.toLowerCase();
@@ -184,10 +213,10 @@ $('#sel_country').change(function () {
 
                       if (city_data.status.name == "ok") {
 
-                        // console.log(city_data['data'][0]['lat']);
-                        // console.log(city_data['data'][0]['lng']);
-                        // console.log(city_data['data'][0]['name']);
-                        // console.log(city_data['data'][0]['population']);
+                        console.log(city_data['data'][0]['lat']);
+                        console.log(city_data['data'][0]['lng']);
+                        console.log(city_data['data'][0]['name']);
+                        console.log(city_data['data'][0]['population']);
                         if(markers){
                           markers.clearLayers();
                         }
@@ -207,7 +236,7 @@ $('#sel_country').change(function () {
                         currencyCode: currencyCode
                       },
                       success: function (exchange_data) {
-                          // console.log(exchange_data);
+                          console.log(exchange_data);
                           let dollar = exchange_data['data']['exchangeUsd'];
                           let pound = exchange_data['data']['exchangeGbp'];
                           let euro = exchange_data['data']['exchangeEur'];
@@ -276,7 +305,7 @@ $('#sel_country').change(function () {
       dataType: "json",
       url: "./libs/php/weatherAPI.php?country=" + countryName.replace(/ /g, ''),
       success: function (weather_data) {
-          // console.log(weather_data);
+          console.log(weather_data);
           $('#weather').html(weather_data['data']['temperature']);
         },
         // Weather API error function
@@ -295,7 +324,7 @@ $('#sel_country').change(function () {
         dataType: "json",
         url: "./libs/php/wikipediaAPI.php?country=" + countryName.replace(/ /g, ''),
         success: function (wiki_data) {
-          // console.log(wiki_data);
+          console.log(wiki_data);
           $('#wikiUrl').html('<a href=https://' + (wiki_data["data"]["wikipediaURL"]) + ' target="_blank">Wikipedia Page</a>');
           $('#wiki').html(wiki_data['data']['wikipedia']);
         },
@@ -324,8 +353,8 @@ $('#sel_country').change(function () {
 // countryName will not always have a value so assigning a default value which can be overwritten
 function getLocation(lat, lng, countryName = 'Your home') {
   
-  L.marker([lat, lng], {icon: countryIcon}).addTo(myMap)
-  .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
+  // L.marker([lat, lng], {icon: countryIcon}).addTo(myMap)
+  // .bindPopup("<h6>You selected </br>" + countryName + ".</h6>").openPopup();
   
  }
   
@@ -348,7 +377,7 @@ function getLocation(lat, lng, countryName = 'Your home') {
       lng: lng
     },
       success: function(result) {
-        // console.log(result);
+        console.log(result);
         $("#sel_country").val(result["data"]["countryCode"].trim().toUpperCase()).change();
       },
       error: function(jqXHR){
@@ -359,7 +388,7 @@ function getLocation(lat, lng, countryName = 'Your home') {
 
   
  function locationSuccess(position) {
-  //  console.log(position)
+   console.log(position)
    var lat = position.coords.latitude;
    var lng = position.coords.longitude;
    getLocation(lat, lng);
