@@ -108,35 +108,34 @@ const cityIcon = L.icon({
       // console.log(city);
       var population = city_data[i]['population'];
       // console.log(population);
-      $.ajax({
-        url: "./libs/php/cityWeatherAPI.php",
-        type: 'GET',
-        dataType: 'json',
-        data: {
-          lat: lat,
-          lng: lng
-        },
-        success: function(result) {
+      // $.ajax({
+      //   url: "./libs/php/cityWeatherAPI.php",
+      //   type: 'GET',
+      //   dataType: 'json',
+      //   data: {
+      //     lat: lat,
+      //     lng: lng
+      //   },
+      //   success: function(result) {
   
-          console.log(JSON.stringify(result));
+      //     console.log(JSON.stringify(result));
   
-          if (result.status.name == "ok") {
-            console.log(result['data']['temperature'])
-            cityWeather = result['data']['temperature'];
+      //     if (result.status.name == "ok") {
+      //       console.log(result['data']['temperature'])
+      //       cityWeather = result['data']['temperature'];
   
-          }
+      //     }
         
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          // your error code
-        }
-      }); 
+      //   },
+      //   error: function(jqXHR, textStatus, errorThrown) {
+      //     // your error code
+      //   }
+      // }); 
 
       var marker = L.marker([lat, lng], {icon: cityIcon});
       var popup = 
           '<div id="markerPopup"><span class="markClustPopup">City: </span>' + city + '<hr/ >' +
-            '<span class="markClustPopup">Population: </span>' + population + 
-            '</br><span class="markClustPopup">Current Temperature: </span>' + cityWeather + '</div>'
+            '<span class="markClustPopup">Population: </span>' + population + '</div>'
         marker.bindPopup(popup);
         markerArr.push(marker);
     }
@@ -416,3 +415,4 @@ function getLocation(lat, lng, countryName = 'Your home') {
  $(window).on('load', function () {
    $('#loading').hide();
  })
+
