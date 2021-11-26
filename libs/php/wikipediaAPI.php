@@ -2,11 +2,10 @@
 
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
-  $country = $_GET['country'];
 
 	$executionStartTime = microtime(true);
 
-	$url='http://api.geonames.org/wikipediaSearchJSON?formatted=true&q=' . $country . '&maxRows=15&username=lo84';
+  $url='http://api.geonames.org/wikipediaSearchJSON?formatted=true&q=' . $_REQUEST['country'] . '&maxRows=15&username=lo84';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);

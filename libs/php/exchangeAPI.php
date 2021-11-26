@@ -22,8 +22,8 @@
 	$output['status']['name'] = "ok";
 	$output['status']['description'] = "success";
 	$output['data']['exchangeUsd'] = $decode['conversion_rates']['USD'];
-  	$output['data']['exchangeGbp'] = $decode['conversion_rates']['GBP'];
-  	$output['data']['exchangeEur'] = $decode['conversion_rates']['EUR'];
+  $output['data']['exchangeGbp'] = $decode['conversion_rates']['GBP'];
+  $output['data']['exchangeEur'] = $decode['conversion_rates']['EUR'];
 
 
 	echo json_encode($output); 

@@ -16,3 +16,4 @@ usort($all_countries, function($a, $b) {
     return strcasecmp($a[0], $b[0]);
 });
 echo(json_encode($all_countries));
+

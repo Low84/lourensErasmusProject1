@@ -2,11 +2,10 @@
  
     ini_set('display_errors', 'On');
     error_reporting(E_ALL);
-    $country = $_GET['country'];
  
     $executionStartTime = microtime(true);
  
-    $url='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=' . $country . '&username=lo84';
+    $url='http://api.geonames.org/countryInfoJSON?formatted=true&lang=en&country=' . $_REQUEST['countryCode'] . '&username=lo84';
  
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -29,10 +28,8 @@
     $output['data']['currencyCode'] = $decode['geonames'][0]['currencyCode'];
     $output['data']['countCode'] = $decode['geonames'][0]['countryCode'];
     $output['data']['population'] = $decode['geonames'][0]['population'];
+    $output['data']['capital'] = $decode['geonames'][0]['capital'];
 
-
- 
-  
     echo json_encode($output); 
  
 ?>

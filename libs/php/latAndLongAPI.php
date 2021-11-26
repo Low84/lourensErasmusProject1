@@ -2,10 +2,10 @@
 
 	ini_set('display_errors', 'On');
 	error_reporting(E_ALL);
-	$country = $_GET['country'];
+	// $country = $_GET['country'];
 
 	$executionStartTime = microtime(true);
-	$url='https://api.opencagedata.com/geocode/v1/json?q='. $country .'&key=e629dbaaefe94793afde8b17b2947ad8';
+	$url='https://api.opencagedata.com/geocode/v1/json?q=' . $_REQUEST['country'] . '&key=e629dbaaefe94793afde8b17b2947ad8';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
