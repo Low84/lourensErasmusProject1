@@ -20,11 +20,11 @@
     $output['status']['code'] = "200";
     $output['status']['name'] = "ok";
     $output['status']['description'] = "success";
-    $output['data']['deaths'] = $decode['deaths'];
-    $output['data']['recovered'] = $decode['recovered'];
-    $output['data']['cases'] = $decode['cases'];
-    $output['data']['active'] = $decode['active'];
-    $output['data']['tests'] = $decode['tests'];
+    $output['data']['deaths'] = number_format($decode['deaths']);
+    $output['data']['recovered'] = number_format($decode['recovered']);
+    $output['data']['cases'] = number_format($decode['cases']);
+    $output['data']['active'] = number_format($decode['active']);
+    $output['data']['tests'] = number_format($decode['tests']);
 
     echo json_encode($output); 
  
