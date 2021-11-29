@@ -297,59 +297,7 @@ $('#sel_country').change(function () {
       },
 
       success: function (weather_data) {
-          // var today = new Date();
-          // var dd = String(today.getDate()).padStart(2, '0');
-          // var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-          // var yyyy = today.getFullYear();
-
-          // switch(mm) {
-          //   case mm === '1':
-          //     mm = 'Jan';
-          //     break;
-          //   case mm === '2':
-          //     mm = 'Feb';
-          //     break;
-          //   case mm === '3':
-          //     mm = 'Mar';
-          //     break;
-          //   case mm === '4':
-          //     mm = 'Apr';
-          //     break;
-          //   case mm === '5':
-          //     mm = 'May';
-          //     break;
-          //   case mm === '6':
-          //     mm = 'Jun';
-          //     break;
-          //   case mm === '7':
-          //     mm = 'Jul';
-          //     break;
-          //   case mm === '8':
-          //     mm = 'Aug';
-          //     break;
-          //   case mm === '9':
-          //     mm = 'Sep';
-          //     break;
-          //   case mm === '10':
-          //     mm = 'Oct';
-          //     break;
-          //   case mm === '11':
-          //     mm = 'Nov';
-          //     break;
-          //   case mm === '12':
-          //     mm = 'Dec';
-          //     break;
-          // }
-
-          // if(dd === '01' || dd === '21') {
-          //   dd = dd + 'st of ';
-          // } else if (dd === '02' || '22') {
-          //   dd = dd +'nd of ';
-          // } else if (dd === '03' || dd === '23') {
-          //   dd = dd + 'rd of ';
-          // } else
-
-          // today = mm + '/' + dd + '/' + yyyy;
+          
 
           console.log(weather_data);
           $('#weather').html(weather_data['data']['tempDayOne']);
