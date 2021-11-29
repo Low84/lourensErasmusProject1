@@ -13,9 +13,8 @@
     <link rel="stylesheet" type="text/css" href="./vendors/css/bootstrap.css" />
 
     <!-- Extra markers css -->
-    <!-- <link rel="stylesheet" href="./vendors/css/leaflet.extra-markers.min.css"> -->
+    <link rel="stylesheet" href="./vendors/css/leaflet.extra-markers.min.css">
     <!-- Extra markers JavaScript -->
-    <!-- <script src="./vendors/js/leaflet.extra-markers.min.js"></script> -->
     <script src="https://kit.fontawesome.com/785efd1d02.js" crossorigin="anonymous"></script>
 
     <!-- Leaflet css -->
@@ -58,16 +57,16 @@
       <img id="loading-image" src="./libs/images/preloader.gif" alt="Loading..." />
     </div>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navBar">
+    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navBar">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Gazetteer</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarNavDarkDropdown" aria-controls="navbarNavDarkDropdown" aria-expanded="false"
                 aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </button> 
             <div class="collapse navbar-collapse" id="navbarNavDarkDropdown">
-                <ul class="navbar-nav" id="countryList">
+                <ul class="navbar-nav" id="countryList" z-index="10000">
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button"
                             data-bs-toggle="dropdown" aria-expanded="false">
@@ -78,11 +77,24 @@
                         </select>
                     </li>
                 </ul>
-          </div>
+           </div> -->
+        
 
-    </nav>
-    <div id="mapid">
+    <!-- </nav> -->
+    <!-- <div id="countryList">
+      <select id="sel_country"></select>
+
+    </div> -->
+    <div class="wrapper">
+      <div id="mapid">
+        <form class="form">          
+          <div id="countryList">
+            <select id="sel_country"></select>    
+          </div> 
+        </form>
+      </div>
     </div>
+  
     <footer class="footer">
       <div>Icons made by <a href="https://www.flaticon.com/authors/fjstudio" title="fjstudio">fjstudio</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     </footer>
@@ -167,45 +179,46 @@
 <!-- Weather Modal -->
 <div class="modal fade weather" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
 aria-labelledby="staticBackdropLabel" aria-hidden="true" id="weatherModal">
-<div class="modal-dialog">
-    <div class="modal-content">
+<div class="modal-dialog no-border">
+    <div class="modal-content no-border">
+      <div class="modal-header weatherBack">
+        <div id="modalTitle">
+          <h5 class="modal-title" id="todayDate">Today</h5>
+        </div>                 
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
-        <div class="modal-body">
+      </div>
+
+        <div class="modal-body no-border weatherBack">
           <table class="table" class="weatherTable">
-            <thead class="thead-dark">
-              <tr>
-                <th id="todayDate">Today</th>
-                <!-- <th scope="col" id="countryWeatherName" colspan="2"></th> -->
-              </tr>
-            </thead>
             <tbody>
               <tr>
-                <td id="iconDayOne" rowspan="2"></td>
-                <td id="tempMaxDayOne"></td>
-                <td id="WeatherDescription" colspan="2"></td>
+                <td id="iconDayOne" rowspan="2" class="weatherCell"></td>
+                <td id="tempMaxDayOne" class="weatherCell number high"></td>
+                <td id="WeatherDescription" colspan="2" class="weatherCell description"></td>
               </tr>
               <tr>
-                <td id="tempMinDayOne"></td>
-                <td id="feelsLikeDayOne" colspan="2" ></td>
+                <td id="tempMinDayOne" class="weatherCell number low"></td>
+                <td id="feelsLikeDayOne" colspan="2" class="weatherCell feels"></td>
               </tr>
               <tr>
-                <td id="dayTwoDate" colspan="2">Tommorrow</td>
-                <td id="dayThreeDate" colspan="2">Day After</td>
+                <td id="dayTwoDate" colspan="2" class="weatherCell dateCell"></td>
+                <td id="dayThreeDate" colspan="2" class="weatherCell dateCell borderLeftCell">Day After</td>
               </tr>
               <tr>
-                <td id="iconDayTwo" rowspan="2"></td>
-                <td id="tempMaxDayTwo"></td>
-                <td id="iconDayThree" rowspan="2"></td>
-                <td id="tempMaxDayThree"></td>
+                <td id="iconDayTwo" rowspan="2" class="weatherCell"></td>
+                <td id="tempMaxDayTwo" class="weatherCell number high"></td>
+                <td id="iconDayThree" rowspan="2" class="weatherCell"></td>
+                <td id="tempMaxDayThree" class="weatherCell number high"></td>
               </tr>
               <tr>
-                <td id="tempMinDayTwo"></td>
-                <td id="tempMinDayThree"></td>
+                <td id="tempMinDayTwo" class="weatherCell number low"></td>
+                <td id="tempMinDayThree" class="weatherCell number low"></td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer weatherBack">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
         </div>
     </div>
@@ -217,7 +230,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true" id="weatherModal">
         aria-labelledby="staticBackdropLabel" aria-hidden="true" id="covidModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header newsBackground">
                   <div id="modalTitle">
                     <h5 class="modal-title" id="newsCountry"></h5>
                   </div>                  
@@ -272,7 +285,7 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true" id="weatherModal">
         aria-labelledby="staticBackdropLabel" aria-hidden="true" id="covidModal">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header covidBackground">
                   <div id="modalTitle">
                     <h5 class="modal-title" id="covidCountry"></h5>
                   </div>                 
@@ -344,6 +357,12 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true" id="weatherModal">
     <script type="application/javascript" src="./vendors/js/bootstrap.bundle.js"></script>
 
     <script type="application/javascript" src="./libs/js/script.js"></script>
+
+    <script src="./vendors/js/leaflet.extra-markers.min.js"></script>
+
+
+    <script type="application/javascript" src="./vendors/js/moment.js"></script>
+
 
   </body>
 
