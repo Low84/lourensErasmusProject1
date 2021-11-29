@@ -35,6 +35,13 @@ th {
 
 .modal-title {
   padding-right: 20px;
+  font-weight: bolder;
+  font-size: 1.4rem;
+}
+
+.accordion-button {
+  font-weight: bold;
+  font-size: 1.2rem;
 }
 
 #markerPopup {
@@ -100,6 +107,9 @@ option {
   font-size: 1.2rem; */
 }
 
+td.weatherTable {
+  border: none;
+}
 /* Preloader css */
 #loading {
   position: fixed;
