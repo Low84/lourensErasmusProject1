@@ -1,8 +1,14 @@
 <?php 
+ini_set('display_errors', 'On');
+error_reporting(E_ALL);
+
+$executionStartTime = microtime(true);
+
 
 $string = file_get_contents("../data/countryBorders.geo.json");
 $json = json_decode($string);
 $features = $json->features;
+
 
 $all_countries = array();
 for($i=0;$i<sizeof($features);$i++){
@@ -15,5 +21,7 @@ for($i=0;$i<sizeof($features);$i++){
 usort($all_countries, function($a, $b) {
     return strcasecmp($a[0], $b[0]);
 });
+
 echo(json_encode($all_countries));
 
+?>
