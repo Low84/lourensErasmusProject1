@@ -12,6 +12,12 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" type="text/css" href="./vendors/css/bootstrap.css" />
 
+    <!-- Extra markers css -->
+    <!-- <link rel="stylesheet" href="./vendors/css/leaflet.extra-markers.min.css"> -->
+    <!-- Extra markers JavaScript -->
+    <!-- <script src="./vendors/js/leaflet.extra-markers.min.js"></script> -->
+    <script src="https://kit.fontawesome.com/785efd1d02.js" crossorigin="anonymous"></script>
+
     <!-- Leaflet css -->
     <link rel="stylesheet" type="text/css" href="./vendors/css/leaflet.css" />
     
@@ -73,15 +79,21 @@
                     </li>
                 </ul>
           </div>
+ <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                Launch static backdrop modal
+            </button> -->
+
+            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#weatherModal">
+              Launch demo modal
+            </button> -->
     </nav>
     <div id="mapid">
     </div>
     <footer class="footer">
       <div>Icons made by <a href="https://www.flaticon.com/authors/fjstudio" title="fjstudio">fjstudio</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-      <div>Icons made by <a href="" title="photo3idea_studio">photo3idea_studio</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
     </footer>
 
-    <!-- Modal -->
+    <!-- Info Modal -->
     <div class="modal fade info" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -93,57 +105,57 @@
                   <div id="modalFlag">
                     <span class="flag" id="flag"></span>
                   </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                 </div>
                 <div class="modal-body">
                     <table class="table">
                         <tbody>
                             <tr>
-                                <th>Capital:</th>
-                                <td id="capital"></td>
+                                <td class="leftInfo"><i class="fas fa-city"></i></td>
+                                <td class="midlInfo">Capital City</td>
+                                <td id="capital" class="rightInfo"></td>
                             </tr>
                             <tr>
-                                <th>Continent:</th>
-                                <td id="continent"></td>
+                                <td class="leftInfo"><i class="fas fa-globe-africa"></i></td>
+                                <td class="midlInfo">Continent</td>
+                                <td id="continent" class="rightInfo"></td>
                             </tr>
                             <tr>
-                                <th>Average Temperature:</th>
-                                <td id="weather"></td>
+                                <td class="leftInfo"><i class="fas fa-temperature-low"></i></td>
+                                <td class="midlInfo">Average Temperature</td>
+                                <td id="weather" class="rightInfo"></td>
                             </tr>
                             <tr>
-                                <th>Currency:</th>
-                                <td id="currency"></td>
+                                <td class="leftInfo"><i class="fas fa-money-check-alt"></i></td>
+                                <td class="midlInfo">Currency</td>
+                                <td id="currency" class="rightInfo"></td>
                             </tr>
                             <tr>
-                              <th id="currencyExchange"></th>
-                              <td>
+                              <td class="leftInfo"><i class="fas fa-money-bill-wave"></i></td>
+                              <td id="currencyExchange" class="midlInfo"></td>
+                              <td class="rightInfo">
                                   <ul id="excRateList">
-                                      <li id="usd"></li>
-                                      <li id="gbp"></li>
-                                      <li id="eur"></li>
+                                      <li id="usd" class="rightInfo"></li>
+                                      <li id="gbp" class="rightInfo"></li>
+                                      <li id="eur" class="rightInfo"></li>
                                   </ul>
                               </td>
                           </tr>
                             <tr>
-                                <th>Calling Code:</th>
-                                <td id="calling_code"></td>
-                            </tr>
+                                <td class="leftInfo"><i class="fas fa-phone-square-alt"></i></td>
+                                <td class="midlInfo">Calling Code</td>
+                                <td id="calling_code" class="rightInfo"></td>
+                            </tr>                                                                                 
                             <tr>
-                                <th>Coordinates:</th>
-                                <td id="coord"></td>
-                            </tr>                                                                                   
-                            <tr>
-                                <th>Population:</th>
-                                <td id="population"></td>
+                                <td class="leftInfo"><i class="fas fa-user-friends"></i></td>
+                                <td class="midlInfo">Population</td>
+                                <td id="population" class="rightInfo"></td>
                             </tr>                                                        
                             <tr>
-                                <th>Wikipedia URL:</th>
-                                <td id="wikiUrl"></td>
-                            </tr>
-                            <tr>
-                                <th colspan="2">Wikipedia Summary:</th>
-                            </tr>
-                            <tr>
-                                <td id="wiki" colspan="2"></td>
+                                <td class="leftInfo"><i class="fab fa-wikipedia-w"></i></td>
+                                <td class="midlInfo"v>Visit Wikipedia</td>
+                                <td id="wikiUrl" class="rightInfo"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -154,6 +166,224 @@
             </div>
         </div>
     </div>
+
+    <!-- Button trigger modal -->
+
+
+<!-- Weather Modal -->
+    <div class="modal weather" tabindex="-1" role="dialog" id="weatherModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- <h5 class="modal-title">Weather</h5> -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col" id="todayDate" colspan="2"></th>
+                  <th scope="col" id="countryWeatherName" colspan="2"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td scope="row" id="iconDayOne" rowspan="2"></td>
+                  <td id="tempMaxDayOne"></td>
+                  <td id="WeatherDescription" colspan="2"></td>
+                </tr>
+                <tr>
+                  <td scope="row" id="tempMinDayOne"></td>
+                  <td id="feelsLikeDayOne" colspan="2" ></td>
+                </tr>
+                <tr>
+                  <td scope="row" id="dayTwoDate" colspan="2"></td>
+                  <td id="dayThreeDate" colspan="2"></td>
+                </tr>
+                <tr>
+                  <td scope="row" id="iconDayTwo" rowspan="2"></td>
+                  <td id="tempMaxDayTwo"></td>
+                  <td id="iconDayThree" rowspan="2"></td>
+                  <td id="tempMaxDayThree"></td>
+                </tr>
+                <tr>
+                  <td scope="row">3</td>
+                  <td id="tempMinDayTwo"></td>
+                  <td id="tempMinDayThree"></td>
+                </tr>
+              </tbody>
+            </table>
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- News Modal -->
+    <div class="modal news" tabindex="-1" role="dialog" id="newsModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Weather</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Bootstrap Carousel -->
+            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+              </div>
+              <div class="carousel-inner">
+                <div class="carousel-item active">
+                  <img src="..." class="d-block w-100" alt="...">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th id="titleOne" scope="col"></th>          
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td id="descriptionOne"></td>
+                      </tr>
+                      <tr>
+                        <td id="urlOne"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="carousel-item">
+                  <img src="..." class="d-block w-100" alt="...">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th id="titleTwo" scope="col"></th>          
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td id="descriptionTwo"></td>
+                      </tr>
+                      <tr>
+                        <td id="urlTwo"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="carousel-item">
+                  <img src="..." class="d-block w-100" alt="...">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th id="titleThree" scope="col"></th>          
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td id="descriptionThree"></td>
+                      </tr>
+                      <tr>
+                        <td id="urlThree"></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Covid Modal -->
+    <div class="modal fade covid" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true" id="covidModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <div id="modalTitle">
+                    <h5 class="modal-title">Covid-19 Information</h5>
+                  </div>                 
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="leftInfo"><i class="fas fa-viruses"></i></td>
+                                <td class="midlInfo">Total Cases</td>
+                                <td id="cases" class="rightInfo"></td>
+                            </tr>
+                            <tr>
+                                <td class="leftInfo"><i class="fas fa-head-side-cough"></i></td>
+                                <td class="midlInfo">Active Cases</td>
+                                <td id="active" class="rightInfo"></td>
+                            </tr>
+                            <tr>
+                                <td class="leftInfo"><i class="fas fa-heart"></i></td>
+                                <td class="midlInfo">Total Recoveries</td>
+                                <td id="recovered" class="rightInfo"></td>
+                            </tr>
+                            <tr>
+                                <td class="leftInfo"><i class="fas fa-skull-crossbones"></i></td>
+                                <td class="midlInfo">Deaths</td>
+                                <td id="deaths" class="rightInfo"></td>
+                            </tr>
+                            <tr>
+                                <td class="leftInfo"><i class="fas fa-vial"></i></td>
+                                <td class="midlInfo">Tests to Date</td>
+                                <td id="tests" class="rightInfo"></td>
+                            </tr>                                                                                                     
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Weather</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Modal body text goes here.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div> -->
 
     <!-- Button trigger modal -->
 
