@@ -13,10 +13,28 @@ h6 {
 
 th {
   font-weight: bolder;
+  justify-content: left;
 }
 
-tbody {
-  color: white;
+.leftInfo {
+  vertical-align: middle;
+}
+
+.rightInfo {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  /* text-align: right;
+  vertical-align: middle; */
+
+}
+
+#currencyExchange {
+  vertical-align: middle;
+}
+
+.modal-title {
+  padding-right: 20px;
 }
 
 #markerPopup {
@@ -26,14 +44,13 @@ tbody {
 }
 
 #mapid { 
-  height: 94%;
+  height: 100%;
   margin: 0px;
-  overflow: hidden; 
+  /* overflow: hidden;  */
   width: 100%;
 }
 
 #sel_country {
-  background-color: #04446b;
   overflow-y: scroll; /* Add the ability to scroll */
 }
 
@@ -53,24 +70,9 @@ span.markClustPopup {
   font-weight: bolder;
 }
 
-a {
-  color: rgb(255, 255, 255);
-}
-
-a:hover {
-  color: #eb94d0;
-}
-
 option {
   font-size: 1.4rem;
   line-height: 1.5rem;
-}
-
-option:hover { 
-  background-color: #42a5df;
-  font-size: 1.35rem;
-  font-weight: bold;
-  font-style: italic;
 }
 
 #excRateList {
@@ -91,59 +93,11 @@ option:hover {
   font-size: 2rem;
 }
 
-.modal-header {
-  background-color: #81b8da;
-}
-
-.modal-title {
-  color: white;
-  font-size: 1.7rem;
-  font-weight: bolder;
-  letter-spacing: 3px;
-}
-
-#modalTitle {
-  float: left;
-  clear: left;
-}
-
-#modalFlag {
-  float: right;
-  padding-left: 25vh;
-}
-
-#modalButton {
-  background: #eb94d0;
-  background-image: -webkit-linear-gradient(top, #eb94d0, #2079b0);  
-  background-image: -moz-linear-gradient(top, #eb94d0, #2079b0);  
-  background-image: -ms-linear-gradient(top, #eb94d0, #2079b0);  
-  background-image: -o-linear-gradient(top, #eb94d0, #2079b0);  
-  background-image: linear-gradient(to bottom, #eb94d0, #2079b0);
-  font-size: 1.4rem;
-  width: 40%;
-  margin: auto;
-}
-
-.info {
-  outline: none;
-  overflow:hidden;
-    color: white !important;
-
-}
-
-.modal-footer {
-  background-color: #81b8da;
-}
-
-.modal-dialog{
-  overflow-y: initial !important
-}
-
 .modal-body {
-  height: 80vh;
-  overflow-y: auto;
+  max-height: 80vh;
+  /* overflow-y: auto;
   background-color: #04446b;
-  font-size: 1.2rem;
+  font-size: 1.2rem; */
 }
 
 /* Preloader css */
