@@ -2,7 +2,6 @@ let myMap;
 let border;
 let markers;
 
-
 // Loading the map at start up 
 $(document).ready(function () {
  
@@ -34,20 +33,6 @@ $(document).ready(function () {
        }
    });  
  });
-
-// Icon for map
-// const cityIcon = L.icon({
-//   iconUrl: './libs/images/location.png',
-//   shadowUrl: './libs/images/markers_shadow.png',
-
-//   iconSize:     [64, 64], // size of the icon
-//   shadowSize:   [64, 64], // size of the shadow
-//   iconAnchor:   [32, 70], // point of the icon which will correspond to marker's location 
-//   shadowAnchor: [34, 72],  // the same for the shadow
-//   popupAnchor:  [100, 150] // point from which the popup should open relative to the iconAnchor
-// })
-
-
 
  let c=0;
  function applyCountryBorder(code) {
@@ -101,14 +86,14 @@ $(document).ready(function () {
       var population = city_data[i]['population'];
       console.log(population);
 
-      // var redMarker = L.ExtraMarkers.icon({
-      //   icon: 'fa-viruses',
-      //   markerColor: 'red',
-      //   shape: 'square',
-      //   prefix: 'fa '
-      // });
+      var greenBuilding = L.ExtraMarkers.icon({
+        icon: 'fa-building',
+        markerColor: 'green',
+        shape: 'square',
+        prefix: 'fa '
+      });
 
-      var marker = L.marker([lat, lng]);
+      var marker = L.marker([lat, lng], {icon: greenBuilding});
       var popup = 
           '<div id="markerPopup"><span class="markClustPopup">City: </span>' + city + '<hr/ >' +
             '<span class="markClustPopup">Population: </span>' + population + '</span></div>'
@@ -117,9 +102,6 @@ $(document).ready(function () {
     }
     return markerArr;
 }
-
-
-
 
 $('#sel_country').change(function () {
   let countryName = $('#sel_country option:selected').text();
@@ -255,7 +237,7 @@ $('#sel_country').change(function () {
                             $('#usd').html('$ ' + dollar);
                             $('#gbp').html('£ ' + pound);
                             $('#eur').html('€ ' + euro);
-                              
+                                                      
                           },
                           // Exchange API error function
                           error: function (jqXHR, textStatus, errorThrown) {
@@ -266,7 +248,7 @@ $('#sel_country').change(function () {
                               console.log(jqXHR)
 
                           }
-                        });
+                        }); 
                       },
                         // Exchange API error function
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -306,9 +288,12 @@ $('#sel_country').change(function () {
       success: function (weather_data) {
           
 
-          console.log(weather_data);
           $('#weather').html(weather_data['data']['tempDayOne']);
-          // $('#countryWeatherName').html('Three day Weather Forecast for ' + weather_data['data']['countryWeatherName']);
+          // $('#todayDate').html('Today the ' + moment().add(1, 'days').format("Do MMMM YYYY"));
+
+          $('#dayTwoDate').html(moment().add(1, 'days').format("Do MMM YY"));
+          $('#dayThreeDate').html(moment().add(2, 'days').format("Do MMM YY"));
+
 
           let iconDayOne = weather_data['data']['iconDayOne'];
           console.log(iconDayOne);
@@ -317,7 +302,7 @@ $('#sel_country').change(function () {
           $('#tempMaxDayOne').html(weather_data['data']['tempMaxDayOne']);
           $('#WeatherDescription').html(weather_data['data']['WeatherDescription']);
           $('#tempMinDayOne').html(weather_data['data']['tempMinDayOne']);
-          $('#feelsLikeDayOne').html('Feels like temperature of ' + weather_data['data']['feelsLikeDayOne']);
+          $('#feelsLikeDayOne').html('It will feel like ' + weather_data['data']['feelsLikeDayOne']);
 
           let iconDayTwo = weather_data['data']['iconDayTwo'];
           console.log(iconDayTwo);
@@ -381,16 +366,16 @@ $('#sel_country').change(function () {
       success: function (news_data) {        
           console.log(news_data);
 
-          $('#titleOne').html(news_data['data']['titleOne']);
-          $('#descriptionOne').html(news_data['data']['descriptionOne'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlOne"]) + ' target="_blank">Source</a>');
-          // $('#urlOne').html('<a href=https://' + (news_data["data"]["urlOne"]) + ' target="_blank">News Source</a>');
+          // $('#titleOne').html(news_data['data']['titleOne']);
+          // $('#descriptionOne').html(news_data['data']['descriptionOne'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlOne"]) + ' target="_blank">Source</a>');
+          // // $('#urlOne').html('<a href=https://' + (news_data["data"]["urlOne"]) + ' target="_blank">News Source</a>');
 
-          $('#titleTwo').html(news_data['data']['titleTwo']);
-          $('#descriptionTwo').html(news_data['data']['descriptionTwo'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlTwo"]) + ' target="_blank">Source</a>');
-          // $('#urlTwo').html('<a href=https://' + (news_data["data"]["urlTwo"]) + ' target="_blank">News Source</a>');
+          // $('#titleTwo').html(news_data['data']['titleTwo']);
+          // $('#descriptionTwo').html(news_data['data']['descriptionTwo'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlTwo"]) + ' target="_blank">Source</a>');
+          // // $('#urlTwo').html('<a href=https://' + (news_data["data"]["urlTwo"]) + ' target="_blank">News Source</a>');
 
-          $('#titleThree').html(news_data['data']['titleThree']);
-          $('#descriptionThree').html(news_data['data']['descriptionThree'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlThree"]) + ' target="_blank">Source</a>');
+          // $('#titleThree').html(news_data['data']['titleThree']);
+          // $('#descriptionThree').html(news_data['data']['descriptionThree'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlThree"]) + ' target="_blank">Source</a>');
           // $('#urlThree').html('<a href=https://' + (news_data["data"]["urlThree"]) + ' target="_blank">News Source</a>');
 
         },
@@ -436,45 +421,46 @@ $('#sel_country').change(function () {
       });
 
     // Info Easybutton
-    if ($(".telrec")[0]) {
+    // if ($(".telrec")[0]) {
+    //   $('.info').modal('hide');
+    // } else {
+    //   L.easyButton('<span class="telrec">&telrec;</span>', function () {
+    //     $('.info').modal('show');
+    //   }).addTo(myMap);
+    // // $('.info').modal('show');
+    //  } 
+
+     if ($("fa-info")[0]) {
       $('.info').modal('hide');
     } else {
-      L.easyButton('<span class="telrec">&telrec;</span>', function () {
-        $('.info').modal('show');
-      }).addTo(myMap);
-    // $('.info').modal('show');
-     } 
+    L.easyButton( 'fa-info', function(){
+      $('.info').modal('show');
+    }).addTo(myMap);
+    }                
 
-    // Weather Easybutton
-    if ($(".curren")[0]) {
+    if ($("fa-temperature-low")[0]) {
       $('.weather').modal('hide');
     } else {
-      L.easyButton('<span class="curren">&curren;</span>', function () {
+      L.easyButton( 'fa-temperature-low', function(){
         $('.weather').modal('show');
       }).addTo(myMap);
-    // $('.weather').modal('show');
-    }
+    }                
 
-    // News Easybutton
-    if ($(".equiv")[0]) {
+    if ($("fa-newspaper")[0]) {
       $('.news').modal('hide');
     } else {
-      L.easyButton('<span class="equiv">&&equiv;</span>', function () {
+      L.easyButton( 'fa-newspaper', function(){
         $('.news').modal('show');
       }).addTo(myMap);
-    // $('.news').modal('show');
-    } 
-
-    // Covid Easybutton
-    if ($(".midast")[0]) {
+    }                     
+ 
+    if ($("fa-virus")[0]) {
       $('.covid').modal('hide');
     } else {
-      L.easyButton('<span class="midast">&midast;</span>', function () {
+      L.easyButton( 'fa-virus', function(){
         $('.covid').modal('show');
       }).addTo(myMap);
-    // $('.covid').modal('show');
-    } 
-                            
+    }                       
 });
 
 // countryName will not always have a value so assigning a default value which can be overwritten
