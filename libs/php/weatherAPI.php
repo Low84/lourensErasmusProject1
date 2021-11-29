@@ -5,8 +5,7 @@
 
 	$executionStartTime = microtime(true);
 
-	// $url='api.openweathermap.org/data/2.5/forecast?q=' . $_REQUEST['country'] . '&appid=081a3abb2dcd1c8661e9e69d5ffe70a0&units=metric';
-	$url='api.openweathermap.org/data/2.5/forecast?q=canada&appid=081a3abb2dcd1c8661e9e69d5ffe70a0&units=metric';
+	$url='api.openweathermap.org/data/2.5/forecast?q=' . $_REQUEST['country'] . '&appid=081a3abb2dcd1c8661e9e69d5ffe70a0&units=metric';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
