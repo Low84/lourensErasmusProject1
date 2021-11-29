@@ -6,7 +6,9 @@ let markers;
 // Loading the map at start up 
 $(document).ready(function () {
  
-  myMap = L.map('mapid').setView([51.505, -0.09], 5.5);
+  myMap = L.map('mapid', {
+    attributionControl: false,
+  }).setView([51.505, -0.09], 5.5);
  
    // Tile layer for leaflet
    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
@@ -45,12 +47,7 @@ $(document).ready(function () {
 //   popupAnchor:  [100, 150] // point from which the popup should open relative to the iconAnchor
 // })
 
-// var redMarker = L.ExtraMarkers.icon({
-//   icon: '<i class="fa fa-map-marker fa-4x"></i>',
-//   markerColor: 'red',
-//   shape: 'square',
-//   prefix: 'fa'
-// });
+
 
  let c=0;
  function applyCountryBorder(code) {
@@ -93,7 +90,6 @@ $(document).ready(function () {
 
   function cityPopulationMarker(city_data){
     var markerArr = [];
-    var weather;
 
     for (var i = 0; i < city_data.length; i++) {
       var lat = city_data[i]['lat'];
@@ -104,6 +100,13 @@ $(document).ready(function () {
       console.log(city);
       var population = city_data[i]['population'];
       console.log(population);
+
+      // var redMarker = L.ExtraMarkers.icon({
+      //   icon: 'fa-viruses',
+      //   markerColor: 'red',
+      //   shape: 'square',
+      //   prefix: 'fa '
+      // });
 
       var marker = L.marker([lat, lng]);
       var popup = 
@@ -153,6 +156,10 @@ $('#sel_country').change(function () {
           $('#continent').html(geo_data['continent']);
           $('#country').html(geo_data['country']);
           $('#countryName').html(geo_data['country']);
+          $('#newsCountry').html('Top news stories for ' + geo_data['country']);
+          $('#covidCountry').html('Latest covid information for ' + geo_data['country']);
+          $('#countryWeatherName').html('Three day Weather Forecast for ' + geo_data['country']);
+ 
   
           // CountryInfo API call
           $.ajax({
@@ -301,25 +308,27 @@ $('#sel_country').change(function () {
 
           console.log(weather_data);
           $('#weather').html(weather_data['data']['tempDayOne']);
-          $('#countryWeatherName').html(weather_data['data']['countryWeatherName']);
+          // $('#countryWeatherName').html('Three day Weather Forecast for ' + weather_data['data']['countryWeatherName']);
 
-          let iconDayOne = $('#iconDayOne').html(weather_data['data']['iconDayOne']);
-          $('#iconDayOne').html('<img src=http://openweathermap.org/img/wn/' + iconDayOne + '@2x.png');
+          let iconDayOne = weather_data['data']['iconDayOne'];
+          console.log(iconDayOne);
+          $('#iconDayOne').html('<img src=http://openweathermap.org/img/wn/' + iconDayOne + '@2x.png>');
 
           $('#tempMaxDayOne').html(weather_data['data']['tempMaxDayOne']);
           $('#WeatherDescription').html(weather_data['data']['WeatherDescription']);
           $('#tempMinDayOne').html(weather_data['data']['tempMinDayOne']);
-          $('#feelsLikeDayOne').html(weather_data['data']['feelsLikeDayOne']);
+          $('#feelsLikeDayOne').html('Feels like temperature of ' + weather_data['data']['feelsLikeDayOne']);
 
-          let iconDayTwo = $('#iconDayTwo').html(weather_data['data']['iconDayTwo']);
-          $('#iconDayOne').html('<img src=http://openweathermap.org/img/wn/' + iconDayTwo + '@2x.png');
+          let iconDayTwo = weather_data['data']['iconDayTwo'];
+          console.log(iconDayTwo);
+          $('#iconDayTwo').html('<img src=http://openweathermap.org/img/wn/' + iconDayTwo + '@2x.png>');
           
           $('#tempMaxDayTwo').html(weather_data['data']['tempMaxDayTwo']);
 
-          let iconDayThree = $('#iconDayThree').html(weather_data['data']['iconDayThree']);
-          $('#iconDayOne').html('<img src=http://openweathermap.org/img/wn/' + iconDayThree + '@2x.png');
+          let iconDayThree = weather_data['data']['iconDayThree'];
+          console.log(iconDayThree);
+          $('#iconDayThree').html('<img src=http://openweathermap.org/img/wn/' + iconDayThree + '@2x.png>');
 
-          $('#iconDayThree').html(weather_data['data']['iconDayThree']);
           $('#tempMaxDayThree').html(weather_data['data']['tempMaxDayThree']);
           $('#tempMinDayTwo').html(weather_data['data']['tempMinDayTwo']);
           $('#tempMinDayThree').html(weather_data['data']['tempMinDayThree']);
@@ -373,16 +382,16 @@ $('#sel_country').change(function () {
           console.log(news_data);
 
           $('#titleOne').html(news_data['data']['titleOne']);
-          $('#descriptionOne').html(news_data['data']['descriptionOne']);
-          $('#urlOne').html('Read more ' + '<a href=https://' + (news_data["data"]["urlOne"]) + ' target="_blank">Wikipedia Page</a>');
+          $('#descriptionOne').html(news_data['data']['descriptionOne'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlOne"]) + ' target="_blank">Source</a>');
+          // $('#urlOne').html('<a href=https://' + (news_data["data"]["urlOne"]) + ' target="_blank">News Source</a>');
 
           $('#titleTwo').html(news_data['data']['titleTwo']);
-          $('#descriptionTwo').html(news_data['data']['descriptionTwo']);
-          $('#urlTwo').html('Read more ' + '<a href=https://' + (news_data["data"]["urlTwo"]) + ' target="_blank">Wikipedia Page</a>');
+          $('#descriptionTwo').html(news_data['data']['descriptionTwo'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlTwo"]) + ' target="_blank">Source</a>');
+          // $('#urlTwo').html('<a href=https://' + (news_data["data"]["urlTwo"]) + ' target="_blank">News Source</a>');
 
           $('#titleThree').html(news_data['data']['titleThree']);
-          $('#descriptionThree').html(news_data['data']['descriptionThree']);
-          $('#urlThree').html('Read more ' + '<a href=https://' + (news_data["data"]["urlThree"]) + ' target="_blank">Wikipedia Page</a>');
+          $('#descriptionThree').html(news_data['data']['descriptionThree'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlThree"]) + ' target="_blank">Source</a>');
+          // $('#urlThree').html('<a href=https://' + (news_data["data"]["urlThree"]) + ' target="_blank">News Source</a>');
 
         },
         // News API error function
@@ -406,7 +415,7 @@ $('#sel_country').change(function () {
         },
 
         success: function (covid_data) {
-            console.log(covid_data);
+            console.log(covid_data);           
 
             $('#cases').html(covid_data['data']['cases']);
             $('#active').html(covid_data['data']['active']);
@@ -426,40 +435,44 @@ $('#sel_country').change(function () {
           }
       });
 
+    // Info Easybutton
     if ($(".telrec")[0]) {
-      $('.info').modal('show');
+      $('.info').modal('hide');
     } else {
       L.easyButton('<span class="telrec">&telrec;</span>', function () {
         $('.info').modal('show');
       }).addTo(myMap);
-    $('.info').modal('show');
-    } 
+    // $('.info').modal('show');
+     } 
 
-    if ($(".&curren")[0]) {
-      $('.weather').modal('show');
+    // Weather Easybutton
+    if ($(".curren")[0]) {
+      $('.weather').modal('hide');
     } else {
-      L.easyButton('<span class="&curren"&curren;</span>', function () {
+      L.easyButton('<span class="curren">&curren;</span>', function () {
         $('.weather').modal('show');
       }).addTo(myMap);
-    $('.weather').modal('show');
+    // $('.weather').modal('show');
     }
 
-    if ($(".&equiv")[0]) {
-      $('.news').modal('show');
+    // News Easybutton
+    if ($(".equiv")[0]) {
+      $('.news').modal('hide');
     } else {
-      L.easyButton('<span class="&equiv">&&equiv;</span>', function () {
+      L.easyButton('<span class="equiv">&&equiv;</span>', function () {
         $('.news').modal('show');
       }).addTo(myMap);
-    $('.news').modal('show');
+    // $('.news').modal('show');
     } 
 
-    if ($(".&midast")[0]) {
-      $('.covid').modal('show');
+    // Covid Easybutton
+    if ($(".midast")[0]) {
+      $('.covid').modal('hide');
     } else {
-      L.easyButton('<span class="&midast">&midast;</span>', function () {
+      L.easyButton('<span class="midast">&midast;</span>', function () {
         $('.covid').modal('show');
       }).addTo(myMap);
-    $('.covid').modal('show');
+    // $('.covid').modal('show');
     } 
                             
 });
