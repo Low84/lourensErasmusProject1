@@ -27,7 +27,7 @@
     $output['data']['south'] = $decode['geonames'][0]['south'];
     $output['data']['currencyCode'] = $decode['geonames'][0]['currencyCode'];
     $output['data']['countCode'] = $decode['geonames'][0]['countryCode'];
-    $output['data']['population'] = $decode['geonames'][0]['population'];
+    $output['data']['population'] = number_format($decode['geonames'][0]['population']);
     $output['data']['capital'] = $decode['geonames'][0]['capital'];
 
     echo json_encode($output); 
