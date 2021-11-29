@@ -79,13 +79,7 @@
                     </li>
                 </ul>
           </div>
- <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Launch static backdrop modal
-            </button> -->
 
-            <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#weatherModal">
-              Launch demo modal
-            </button> -->
     </nav>
     <div id="mapid">
     </div>
@@ -171,149 +165,112 @@
 
 
 <!-- Weather Modal -->
-    <div class="modal weather" tabindex="-1" role="dialog" id="weatherModal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <!-- <h5 class="modal-title">Weather</h5> -->
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col" id="todayDate" colspan="2"></th>
-                  <th scope="col" id="countryWeatherName" colspan="2"></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td scope="row" id="iconDayOne" rowspan="2"></td>
-                  <td id="tempMaxDayOne"></td>
-                  <td id="WeatherDescription" colspan="2"></td>
-                </tr>
-                <tr>
-                  <td scope="row" id="tempMinDayOne"></td>
-                  <td id="feelsLikeDayOne" colspan="2" ></td>
-                </tr>
-                <tr>
-                  <td scope="row" id="dayTwoDate" colspan="2"></td>
-                  <td id="dayThreeDate" colspan="2"></td>
-                </tr>
-                <tr>
-                  <td scope="row" id="iconDayTwo" rowspan="2"></td>
-                  <td id="tempMaxDayTwo"></td>
-                  <td id="iconDayThree" rowspan="2"></td>
-                  <td id="tempMaxDayThree"></td>
-                </tr>
-                <tr>
-                  <td scope="row">3</td>
-                  <td id="tempMinDayTwo"></td>
-                  <td id="tempMinDayThree"></td>
-                </tr>
-              </tbody>
-            </table>
-            
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
+<div class="modal fade weather" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+aria-labelledby="staticBackdropLabel" aria-hidden="true" id="weatherModal">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+          <div id="modalTitle">
+            <h5 class="modal-title" id="countryWeatherName"></h5>
+          </div>         
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
         </div>
-      </div>
+        <div class="modal-body">
+          <table class="table" class="weatherTable">
+            <thead class="thead-dark">
+              <tr>
+                <th id="todayDate">Today</th>
+                <!-- <th scope="col" id="countryWeatherName" colspan="2"></th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td id="iconDayOne" rowspan="2"></td>
+                <td id="tempMaxDayOne"></td>
+                <td id="WeatherDescription" colspan="2"></td>
+              </tr>
+              <tr>
+                <td id="tempMinDayOne"></td>
+                <td id="feelsLikeDayOne" colspan="2" ></td>
+              </tr>
+              <tr>
+                <td id="dayTwoDate" colspan="2">Tommorrow</td>
+                <td id="dayThreeDate" colspan="2">Day After</td>
+              </tr>
+              <tr>
+                <td id="iconDayTwo" rowspan="2"></td>
+                <td id="tempMaxDayTwo"></td>
+                <td id="iconDayThree" rowspan="2"></td>
+                <td id="tempMaxDayThree"></td>
+              </tr>
+              <tr>
+                <td id="tempMinDayTwo"></td>
+                <td id="tempMinDayThree"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
+        </div>
     </div>
+</div>
+</div>
 
     <!-- News Modal -->
-    <div class="modal news" tabindex="-1" role="dialog" id="newsModal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Weather</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <!-- Bootstrap Carousel -->
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-indicators">
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-              </div>
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <img src="..." class="d-block w-100" alt="...">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th id="titleOne" scope="col"></th>          
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td id="descriptionOne"></td>
-                      </tr>
-                      <tr>
-                        <td id="urlOne"></td>
-                      </tr>
-                    </tbody>
-                  </table>
+    <div class="modal fade news" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true" id="covidModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                  <div id="modalTitle">
+                    <h5 class="modal-title" id="newsCountry"></h5>
+                  </div>                  
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                 </div>
-                <div class="carousel-item">
-                  <img src="..." class="d-block w-100" alt="...">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th id="titleTwo" scope="col"></th>          
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td id="descriptionTwo"></td>
-                      </tr>
-                      <tr>
-                        <td id="urlTwo"></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="modal-body">
+                  <!-- Accordion -->
+                  <div class="accordion accordion-flush" id="accordionFlushExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"  id="titleOne">
+
+                        </button>
+                      </h2>
+                      <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body"  id="descriptionOne"></div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" id="titleTwo">
+
+                        </button>
+                      </h2>
+                      <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body"  id="descriptionTwo"></div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" id="titleThree">
+
+                        </button>
+                      </h2>
+                      <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body"  id="descriptionThree"></div>
+                      </div>
+                    </div>
+                  </div>
+                    
                 </div>
-                <div class="carousel-item">
-                  <img src="..." class="d-block w-100" alt="...">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th id="titleThree" scope="col"></th>          
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td id="descriptionThree"></td>
-                      </tr>
-                      <tr>
-                        <td id="urlThree"></td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
                 </div>
-              </div>
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-              </button>
             </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          </div>
         </div>
-      </div>
     </div>
 
     <!-- Covid Modal -->
@@ -323,7 +280,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                   <div id="modalTitle">
-                    <h5 class="modal-title">Covid-19 Information</h5>
+                    <h5 class="modal-title" id="covidCountry"></h5>
                   </div>                 
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
