@@ -21,7 +21,7 @@ for($i=0;$i<sizeof($features);$i++){
 usort($all_countries, function($a, $b) {
     return strcasecmp($a[0], $b[0]);
 });
-
+header('Content-Type: application/json; charset=UTF-8');
 echo(json_encode($all_countries));
 
 ?>

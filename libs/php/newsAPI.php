@@ -6,7 +6,6 @@
 	$executionStartTime = microtime(true);
 
 	$url='https://newsapi.org/v2/everything?q=' . $_REQUEST['country'] . '&from=' . $_REQUEST['date'] . '&sortBy=publishedAt&apiKey=1db34c3409484d1d9f170e2fac3e7986';
-	// $url='https://newsapi.org/v2/everything?q=canada&from=30-11-2021&sortBy=publishedAt&apiKey=1db34c3409484d1d9f170e2fac3e7986';
 
 	$ch = curl_init();
 	curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
