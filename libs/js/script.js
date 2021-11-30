@@ -18,7 +18,27 @@ $(document).ready(function () {
        id: 'mapbox/streets-v11',
        tileSize: 512,
        zoomOffset: -1
-   }).addTo(myMap);   
+   }).addTo(myMap);
+   
+   L.easyButton( 'fa-info', function(){
+    $('.info').modal('show');
+  }).addTo(myMap);                
+  
+  
+    L.easyButton( 'fa-temperature-low', function(){
+      $('.weather').modal('show');
+    }).addTo(myMap);               
+  
+  
+    L.easyButton( 'fa-newspaper', function(){
+      $('.news').modal('show');
+    }).addTo(myMap);                   
+  
+  
+    L.easyButton( 'fa-virus', function(){
+      $('.covid').modal('show');
+    }).addTo(myMap);   
+
   
   //  Selecting a country and creating a border around selected country
    $("#sel_country").empty();
@@ -102,6 +122,7 @@ $(document).ready(function () {
     }
     return markerArr;
 }
+
 
 $('#sel_country').change(function () {
   let countryName = $('#sel_country option:selected').text();
@@ -286,7 +307,7 @@ $('#sel_country').change(function () {
       },
 
       success: function (weather_data) {
-          
+          console.log(weather_data);
 
           $('#weather').html(weather_data['data']['tempDayOne']);
           // $('#todayDate').html('Today the ' + moment().add(1, 'days').format("Do MMMM YYYY"));
@@ -294,28 +315,26 @@ $('#sel_country').change(function () {
           $('#dayTwoDate').html(moment().add(1, 'days').format("Do MMM YY"));
           $('#dayThreeDate').html(moment().add(2, 'days').format("Do MMM YY"));
 
-
+          // Weather Day One
           let iconDayOne = weather_data['data']['iconDayOne'];
           console.log(iconDayOne);
           $('#iconDayOne').html('<img src=http://openweathermap.org/img/wn/' + iconDayOne + '@2x.png>');
-
           $('#tempMaxDayOne').html(weather_data['data']['tempMaxDayOne']);
-          $('#WeatherDescription').html(weather_data['data']['WeatherDescription']);
           $('#tempMinDayOne').html(weather_data['data']['tempMinDayOne']);
           $('#feelsLikeDayOne').html('It will feel like ' + weather_data['data']['feelsLikeDayOne']);
+          $('#WeatherDescription').html(weather_data['data']['WeatherDescription']);
 
+          // Weather day Two
           let iconDayTwo = weather_data['data']['iconDayTwo'];
           console.log(iconDayTwo);
-          $('#iconDayTwo').html('<img src=http://openweathermap.org/img/wn/' + iconDayTwo + '@2x.png>');
-          
+          $('#iconDayTwo').html('<img src=http://openweathermap.org/img/wn/' + iconDayTwo + '@2x.png>');          
           $('#tempMaxDayTwo').html(weather_data['data']['tempMaxDayTwo']);
+          $('#tempMinDayTwo').html(weather_data['data']['tempMinDayTwo']);
 
           let iconDayThree = weather_data['data']['iconDayThree'];
           console.log(iconDayThree);
           $('#iconDayThree').html('<img src=http://openweathermap.org/img/wn/' + iconDayThree + '@2x.png>');
-
           $('#tempMaxDayThree').html(weather_data['data']['tempMaxDayThree']);
-          $('#tempMinDayTwo').html(weather_data['data']['tempMinDayTwo']);
           $('#tempMinDayThree').html(weather_data['data']['tempMinDayThree']);
         },
         // Weather API error function
@@ -366,17 +385,17 @@ $('#sel_country').change(function () {
       success: function (news_data) {        
           console.log(news_data);
 
-          // $('#titleOne').html(news_data['data']['titleOne']);
-          // $('#descriptionOne').html(news_data['data']['descriptionOne'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlOne"]) + ' target="_blank">Source</a>');
-          // // $('#urlOne').html('<a href=https://' + (news_data["data"]["urlOne"]) + ' target="_blank">News Source</a>');
+          $('#titleOne').html(news_data['data']['titleOne']);
+          $('#descriptionOne').html(news_data['data']['descriptionOne'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlOne"]) + ' target="_blank">Source</a>');
+          // $('#urlOne').html('<a href=https://' + (news_data["data"]["urlOne"]) + ' target="_blank">News Source</a>');
 
-          // $('#titleTwo').html(news_data['data']['titleTwo']);
-          // $('#descriptionTwo').html(news_data['data']['descriptionTwo'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlTwo"]) + ' target="_blank">Source</a>');
-          // // $('#urlTwo').html('<a href=https://' + (news_data["data"]["urlTwo"]) + ' target="_blank">News Source</a>');
+          $('#titleTwo').html(news_data['data']['titleTwo']);
+          $('#descriptionTwo').html(news_data['data']['descriptionTwo'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlTwo"]) + ' target="_blank">Source</a>');
+          // $('#urlTwo').html('<a href=https://' + (news_data["data"]["urlTwo"]) + ' target="_blank">News Source</a>');
 
-          // $('#titleThree').html(news_data['data']['titleThree']);
-          // $('#descriptionThree').html(news_data['data']['descriptionThree'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlThree"]) + ' target="_blank">Source</a>');
-          // $('#urlThree').html('<a href=https://' + (news_data["data"]["urlThree"]) + ' target="_blank">News Source</a>');
+          $('#titleThree').html(news_data['data']['titleThree']);
+          $('#descriptionThree').html(news_data['data']['descriptionThree'] + '</br> Read more ' + '<a href=' + (news_data["data"]["urlThree"]) + ' target="_blank">Source</a>');
+          $('#urlThree').html('<a href=https://' + (news_data["data"]["urlThree"]) + ' target="_blank">News Source</a>');
 
         },
         // News API error function
@@ -418,49 +437,7 @@ $('#sel_country').change(function () {
               console.log(jqXHR)
 
           }
-      });
-
-    // Info Easybutton
-    // if ($(".telrec")[0]) {
-    //   $('.info').modal('hide');
-    // } else {
-    //   L.easyButton('<span class="telrec">&telrec;</span>', function () {
-    //     $('.info').modal('show');
-    //   }).addTo(myMap);
-    // // $('.info').modal('show');
-    //  } 
-
-     if ($("fa-info")[0]) {
-      $('.info').modal('hide');
-    } else {
-    L.easyButton( 'fa-info', function(){
-      $('.info').modal('show');
-    }).addTo(myMap);
-    }                
-
-    if ($("fa-temperature-low")[0]) {
-      $('.weather').modal('hide');
-    } else {
-      L.easyButton( 'fa-temperature-low', function(){
-        $('.weather').modal('show');
-      }).addTo(myMap);
-    }                
-
-    if ($("fa-newspaper")[0]) {
-      $('.news').modal('hide');
-    } else {
-      L.easyButton( 'fa-newspaper', function(){
-        $('.news').modal('show');
-      }).addTo(myMap);
-    }                     
- 
-    if ($("fa-virus")[0]) {
-      $('.covid').modal('hide');
-    } else {
-      L.easyButton( 'fa-virus', function(){
-        $('.covid').modal('show');
-      }).addTo(myMap);
-    }                       
+      });                     
 });
 
 // countryName will not always have a value so assigning a default value which can be overwritten
