@@ -12,11 +12,6 @@ h6 {
   text-align: center;
 }
 
-th {
-  font-weight: bolder;
-  justify-content: left;
-}
-
 .modal {
   margin-top: 15vh;
 }
@@ -42,8 +37,9 @@ th {
 }
 
 .dateCell {
-  border-top: 2px solid rgb(3, 58, 207) !important;
-  border-bottom: 2px solid rgb(3, 58, 207) !important;
+  font-weight: bold;
+  border-top: 2px solid rgb(3, 58, 207);
+  border-bottom: 2px solid rgb(3, 58, 207);
 }
 
 .borderLeftCell {
@@ -69,7 +65,7 @@ th {
 
 .rightInfo {
   display: flex;
-  justify-content: right;
+  justify-content: flex-end;
   align-items: center;
 }
 
