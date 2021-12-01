@@ -85,247 +85,243 @@
       <select id="sel_country"></select>
 
     </div> -->
-    <div class="wrapper">
-      <div id="mapid">
-        <form class="form">          
-          <div id="countryList">
-            <select id="sel_country"></select>    
-          </div> 
-        </form>
-      </div>
+  <div class="wrapper">
+    <div id="mapid">
+      <form class="form">          
+        <div id="countryList">
+          <select id="sel_country"></select>    
+        </div> 
+      </form>
     </div>
+  </div>
   
-    <footer class="footer">
-      <div>Icons made by <a href="https://www.flaticon.com/authors/fjstudio" title="fjstudio">fjstudio</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
-    </footer>
+  <footer class="footer">
+    <div>Icons made by <a href="https://www.flaticon.com/authors/fjstudio" title="fjstudio">fjstudio</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+  </footer>
 
     <!-- Info Modal -->
-    <div class="modal fade info" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                  <div id="modalTitle">
-                    <h5 class="modal-title" id="countryName"></h5>
-                  </div>
-                  <div id="modalFlag">
-                    <span class="flag" id="flag"></span>
-                  </div>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <div class="modal fade info" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                <div id="modalTitle">
+                  <h5 class="modal-title" id="countryName"></h5>
                 </div>
-                <div class="modal-body infoModalBody">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-city"></i></td>
-                                <td class="midInfo">Capital City</td>
-                                <td id="capital" class="rightInfo"></td>
-                            </tr>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-globe-africa"></i></td>
-                                <td class="midInfo">Continent</td>
-                                <td id="continent" class="rightInfo"></td>
-                            </tr>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-temperature-low"></i></td>
-                                <td class="midInfo">Average Temperature</td>
-                                <td id="weather" class="rightInfo"></td>
-                            </tr>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-money-check-alt"></i></td>
-                                <td class="midInfo">Currency</td>
-                                <td id="currency" class="rightInfo"></td>
-                            </tr>
-                            <tr>
-                              <td class="leftInfo"><i class="fas fa-money-bill-wave"></i></td>
-                              <td id="currencyExchange" class="midInfo"></td>
-                              <td class="rightInfo">
-                                  <ul id="excRateList">
-                                      <li id="usd" class="rightInfo"></li>
-                                      <li id="gbp" class="rightInfo"></li>
-                                      <li id="eur" class="rightInfo"></li>
-                                  </ul>
-                              </td>
+                <div id="modalFlag">
+                  <span class="flag" id="flag"></span>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body infoModalBody">
+                  <table class="table">
+                      <tbody>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-city"></i></td>
+                              <td class="midInfo">Capital City</td>
+                              <td id="capital" class="rightInfo"></td>
                           </tr>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-phone-square-alt"></i></td>
-                                <td class="midInfo">Calling Code</td>
-                                <td id="calling_code" class="rightInfo"></td>
-                            </tr>                                                                                 
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-user-friends"></i></td>
-                                <td class="midInfo">Population</td>
-                                <td id="population" class="rightInfo"></td>
-                            </tr>                                                        
-                            <tr>
-                                <td class="leftInfo"><i class="fab fa-wikipedia-w"></i></td>
-                                <td class="midInfo">Visit Wikipedia</td>
-                                <td id="wikiUrl" class="rightInfo"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Button trigger modal -->
-
-
-<!-- Weather Modal -->
-<div class="modal fade weather" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog no-border">
-    <div class="modal-content no-border">
-      <div class="modal-header weatherBack">
-        <div id="modalTitle">
-          <h5 class="modal-title" id="todayDate">Today</h5>
-        </div>                 
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body no-border weatherBack">
-        <table class="table weatherTable">
-          <tbody>
-            <tr>
-              <td id="iconDayOne" rowspan="2" class="weatherCell"></td>
-              <td id="tempMaxDayOne" class="weatherCell number high"></td>
-              <td id="WeatherDescription" colspan="2" class="weatherCell description"></td>
-            </tr>
-            <tr>
-              <td id="tempMinDayOne" class="weatherCell number low"></td>
-              <td id="feelsLikeDayOne" colspan="2" class="weatherCell feels"></td>
-            </tr>
-            <tr>
-              <td id="dayTwoDate" colspan="2" class="weatherCell dateCell"></td>
-              <td id="dayThreeDate" colspan="2" class="weatherCell dateCell borderLeftCell">Day After</td>
-            </tr>
-            <tr>
-              <td id="iconDayTwo" rowspan="2" class="weatherCell"></td>
-              <td id="tempMaxDayTwo" class="weatherCell number high"></td>
-              <td id="iconDayThree" rowspan="2" class="weatherCell"></td>
-              <td id="tempMaxDayThree" class="weatherCell number high"></td>
-            </tr>
-            <tr>
-              <td id="tempMinDayTwo" class="weatherCell number low"></td>
-              <td id="tempMinDayThree" class="weatherCell number low"></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer weatherBack">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
-      </div>
-    </div>
-</div>
-</div>
-
-    <!-- News Modal -->
-<div class="modal fade news" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header newsBackground">
-            <div id="modalTitle">
-              <h5 class="modal-title" id="newsCountry"></h5>
-            </div>                  
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-          </div>
-          <div class="modal-body">
-            <!-- Accordion -->
-            <div class="accordion accordion-flush" id="accordionFlushExample">
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingOne">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"  id="titleOne">
-
-                  </button>
-                </h2>
-                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                  <div class="accordion-body"  id="descriptionOne"></div>
-                </div>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-globe-africa"></i></td>
+                              <td class="midInfo">Continent</td>
+                              <td id="continent" class="rightInfo"></td>
+                          </tr>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-temperature-low"></i></td>
+                              <td class="midInfo">Average Temperature</td>
+                              <td id="weather" class="rightInfo"></td>
+                          </tr>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-money-check-alt"></i></td>
+                              <td class="midInfo">Currency</td>
+                              <td id="currency" class="rightInfo"></td>
+                          </tr>
+                          <tr>
+                            <td class="leftInfo"><i class="fas fa-money-bill-wave"></i></td>
+                            <td id="currencyExchange" class="midInfo"></td>
+                            <td class="rightInfo">
+                                <ul id="excRateList">
+                                    <li id="usd" class="rightInfo"></li>
+                                    <li id="gbp" class="rightInfo"></li>
+                                    <li id="eur" class="rightInfo"></li>
+                                </ul>
+                            </td>
+                        </tr>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-phone-square-alt"></i></td>
+                              <td class="midInfo">Calling Code</td>
+                              <td id="calling_code" class="rightInfo"></td>
+                          </tr>                                                                                 
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-user-friends"></i></td>
+                              <td class="midInfo">Population</td>
+                              <td id="population" class="rightInfo"></td>
+                          </tr>                                                        
+                          <tr>
+                              <td class="leftInfo"><i class="fab fa-wikipedia-w"></i></td>
+                              <td class="midInfo">Visit Wikipedia</td>
+                              <td id="wikiUrl" class="rightInfo"></td>
+                          </tr>
+                      </tbody>
+                  </table>
               </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingTwo">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" id="titleTwo">
-
-                  </button>
-                </h2>
-                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                  <div class="accordion-body"  id="descriptionTwo"></div>
-                </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
               </div>
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="flush-headingThree">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" id="titleThree">
-
-                  </button>
-                </h2>
-                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                  <div class="accordion-body"  id="descriptionThree"></div>
-                </div>
-              </div>
-            </div>
-              
-          </div>
-          <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
           </div>
       </div>
   </div>
-</div>
 
-    <!-- Covid Modal -->
-    <div class="modal fade covid" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header covidBackground">
-                  <div id="modalTitle">
-                    <h5 class="modal-title" id="covidCountry"></h5>
-                  </div>                 
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+  <!-- Weather Modal -->
+  <div class="modal fade weather" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog no-border">
+      <div class="modal-content no-border">
+        <div class="modal-header weatherBack">
+          <div id="modalTitle">
+            <h5 class="modal-title" id="todayDate">Today</h5>
+          </div>                 
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body no-border weatherBack">
+          <table class="table weatherTable">
+            <tbody>
+              <tr>
+                <td id="iconDayOne" rowspan="2" class="weatherCell"></td>
+                <td id="tempMaxDayOne" class="weatherCell number high"></td>
+                <td id="WeatherDescription" colspan="2" class="weatherCell description"></td>
+              </tr>
+              <tr>
+                <td id="tempMinDayOne" class="weatherCell number low"></td>
+                <td id="feelsLikeDayOne" colspan="2" class="weatherCell feels"></td>
+              </tr>
+              <tr>
+                <td id="dayTwoDate" colspan="2" class="weatherCell dateCell"></td>
+                <td id="dayThreeDate" colspan="2" class="weatherCell dateCell borderLeftCell">Day After</td>
+              </tr>
+              <tr>
+                <td id="iconDayTwo" rowspan="2" class="weatherCell"></td>
+                <td id="tempMaxDayTwo" class="weatherCell number high"></td>
+                <td id="iconDayThree" rowspan="2" class="weatherCell"></td>
+                <td id="tempMaxDayThree" class="weatherCell number high"></td>
+              </tr>
+              <tr>
+                <td id="tempMinDayTwo" class="weatherCell number low"></td>
+                <td id="tempMinDayThree" class="weatherCell number low"></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer weatherBack">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
+        </div>
+      </div>
+  </div>
+  </div>
 
+      <!-- News Modal -->
+  <div class="modal fade news" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header newsBackground">
+              <div id="modalTitle">
+                <h5 class="modal-title" id="newsCountry"></h5>
+              </div>                  
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <div class="modal-body">
+              <!-- Accordion -->
+              <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne"  id="titleOne">
+
+                    </button>
+                  </h2>
+                  <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"  id="descriptionOne"></div>
+                  </div>
                 </div>
-                <div class="modal-body">
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-viruses"></i></td>
-                                <td class="midInfo">Total Cases</td>
-                                <td id="cases" class="rightInfo"></td>
-                            </tr>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-head-side-cough"></i></td>
-                                <td class="midInfo">Active Cases</td>
-                                <td id="active" class="rightInfo"></td>
-                            </tr>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-heart"></i></td>
-                                <td class="midInfo">Total Recoveries</td>
-                                <td id="recovered" class="rightInfo"></td>
-                            </tr>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-skull-crossbones"></i></td>
-                                <td class="midInfo">Deaths</td>
-                                <td id="deaths" class="rightInfo"></td>
-                            </tr>
-                            <tr>
-                                <td class="leftInfo"><i class="fas fa-vial"></i></td>
-                                <td class="midInfo">Tests to Date</td>
-                                <td id="tests" class="rightInfo"></td>
-                            </tr>                                                                                                     
-                        </tbody>
-                    </table>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo" id="titleTwo">
+
+                    </button>
+                  </h2>
+                  <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"  id="descriptionTwo"></div>
+                  </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree" id="titleThree">
+
+                    </button>
+                  </h2>
+                  <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"  id="descriptionThree"></div>
+                  </div>
                 </div>
+              </div>
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
             </div>
         </div>
     </div>
+  </div>
+
+      <!-- Covid Modal -->
+  <div class="modal fade covid" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header covidBackground">
+                <div id="modalTitle">
+                  <h5 class="modal-title" id="covidCountry"></h5>
+                </div>                 
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                  <table class="table">
+                      <tbody>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-viruses"></i></td>
+                              <td class="midInfo">Total Cases</td>
+                              <td id="cases" class="rightInfo"></td>
+                          </tr>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-head-side-cough"></i></td>
+                              <td class="midInfo">Active Cases</td>
+                              <td id="active" class="rightInfo"></td>
+                          </tr>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-heart"></i></td>
+                              <td class="midInfo">Total Recoveries</td>
+                              <td id="recovered" class="rightInfo"></td>
+                          </tr>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-skull-crossbones"></i></td>
+                              <td class="midInfo">Deaths</td>
+                              <td id="deaths" class="rightInfo"></td>
+                          </tr>
+                          <tr>
+                              <td class="leftInfo"><i class="fas fa-vial"></i></td>
+                              <td class="midInfo">Tests to Date</td>
+                              <td id="tests" class="rightInfo"></td>
+                          </tr>                                                                                                     
+                      </tbody>
+                  </table>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="modalButton">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
     <!-- <div class="modal" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -346,19 +342,16 @@ aria-labelledby="staticBackdropLabel" aria-hidden="true">
       </div>
     </div> -->
 
-    <!-- Button trigger modal -->
-
     <!-- jQuery -->
-    <script type="application/javascript" src="./vendors/js/jquery-3.6.0.js"></script>
+  <script type="application/javascript" src="./vendors/js/jquery-3.6.0.js"></script>
     <!-- Bootstrap js -->
-    <script type="application/javascript" src="./vendors/js/bootstrap.bundle.js"></script>
-
-    <script type="application/javascript" src="./libs/js/script.js"></script>
-
-    <script src="./vendors/js/leaflet.extra-markers.min.js"></script>
-
-
-    <script type="application/javascript" src="./vendors/js/moment.js"></script>
+  <script type="application/javascript" src="./vendors/js/bootstrap.bundle.js"></script>
+    <!-- Page's JavaScript -->
+  <script type="application/javascript" src="./libs/js/script.js"></script>
+    <!-- ExtraMarkers js -->
+  <script src="./vendors/js/leaflet.extra-markers.min.js"></script>
+    <!-- Moment.js -->
+  <script type="application/javascript" src="./vendors/js/moment.js"></script>
 
 
   </body>
