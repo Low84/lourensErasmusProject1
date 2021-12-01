@@ -57,6 +57,7 @@ $(document).ready(function () {
  let c=0;
  function applyCountryBorder(code) {
    console.log(code);
+
   if(border) {
     border.clearLayers();
   }
@@ -129,7 +130,9 @@ $('#sel_country').change(function () {
   let countryCode = $('#sel_country').val();
   console.log(countryName);
   console.log(countryCode);
-  applyCountryBorder(countryCode);   
+
+  applyCountryBorder(countryCode);  
+   
   let date = new Date()
   let day = date.getDate();
   let month = date.getMonth()+1;
@@ -206,7 +209,7 @@ $('#sel_country').change(function () {
                         west: west 
                       },
                       success: function (city_data) {
-                        // console.log(city_data);
+                        console.log(city_data);
 
                         if (city_data.status.name == "ok") {
 
@@ -235,6 +238,7 @@ $('#sel_country').change(function () {
 
                           success: function (exchange_data) {
                             console.log(exchange_data);
+
                             let dollar = exchange_data['data']['exchangeUsd'];
                             let pound = exchange_data['data']['exchangeGbp'];
                             let euro = exchange_data['data']['exchangeEur'];
@@ -357,8 +361,9 @@ $('#sel_country').change(function () {
           country: encodeURI(countryName)
         },
         success: function (wiki_data) {
-          console.log(wiki_data);
+          console.log(wiki_data);          
           console.log(wiki_data["data"]["wikipediaURL"]);
+
           $('#wikiUrl').html('<a href=https://' + (wiki_data["data"]["wikipediaURL"]) + ' target="_blank">Wikipedia Page</a>');
           $('#wiki').html(wiki_data['data']['wikipedia']);
         },
@@ -468,6 +473,7 @@ function getLocation(lat, lng, countryName = 'Your home') {
     },
       success: function(result) {
         console.log(result);
+
         $("#sel_country").val(result["data"]["countryCode"].trim().toUpperCase()).change();
       },
       error: function(jqXHR){
@@ -476,9 +482,9 @@ function getLocation(lat, lng, countryName = 'Your home') {
     })
  };
 
-  
  function locationSuccess(position) {
    console.log(position)
+
    var lat = position.coords.latitude;
    var lng = position.coords.longitude;
    getLocation(lat, lng);
